@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import UserSignupForm from "./components/UserSignupForm";
-import Welcome from "./components/Welcome";
+import Header from "./components/Header";
 
 import './Layout.css';
 
@@ -8,11 +7,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <UserSignupForm/>
-        <Welcome/>
+        <Header/>
       </div>
     );
   }
 }
+
 
 export default App;
