@@ -10,13 +10,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 import stores from './stores';
 
-ReactDOM.render((
+ReactDOM.render(
   <Provider activities={stores.activities}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </Provider>
-  ),
-  document.getElementById('root'));
+  </Provider>,
+  document.getElementById('root')
+);
 
 registerServiceWorker();
