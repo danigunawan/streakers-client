@@ -9,21 +9,14 @@ import { Link } from 'react-router-dom';
     e.preventDefault();
     this.props.activities.remove(this.props.id);
   }
-
   render() {
     return (
       <div className=''>
-        <h2>
-          <Link to={`/activities/${this.props.id}`}>
-            {this.props.title}
-          </Link>
-        </h2>
-        <p>{this.props.user_id}</p>
-        <a href='#'
-           className=''
-           onClick={this.removeActivity}>
-           Remove
-        </a>
+        <h1> Activity Title</h1>
+          <h3>
+            {this.props.activities.all[0].title}
+          </h3>
+        <p>{this.props.activities.all[0].user_id}</p>
       </div>
     );
   }

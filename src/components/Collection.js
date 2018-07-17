@@ -1,10 +1,10 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
 import Activity from './Activity';
 
-@inject(['activites'])
-@observer class Layout extends React.Component {
+@inject(['activities'])
+@observer class ActivityForm extends React.Component {
   addActivity = (e) => {
     e.preventDefault();
 
@@ -32,7 +32,7 @@ import Activity from './Activity';
 
   render() {
     return (
-      <div id='Activities' className='Activity'>
+      <div className='Activity'>
         {this.newActivity()}
         <div>
           {this.props.contacts.all.slice().map(info =>
@@ -43,5 +43,5 @@ import Activity from './Activity';
     );
   }
 }
-
-export default Layout;
+ 
+export default ActivityForm;
