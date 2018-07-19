@@ -29,6 +29,7 @@ export default class UserSigninForm extends Component {
         console.log(res);
         if (!res.data.errmsg) {
           localStorage.setItem('accessToken', res.data.user.authentication_token)
+          
           alert("Thanks for signing in!!");
           window.location.reload(true);
         } else {
