@@ -35,7 +35,7 @@ import Activity from './Activity';
       <div className='Activity'>
         {this.newActivity()}
         <div>
-          {this.props.contacts.all.slice().map(info =>
+          {this.props.activities.all.slice().map(info =>
             <Activities key={info.id} {...info} />
           )}
         </div>
@@ -43,5 +43,5 @@ import Activity from './Activity';
     );
   }
 }
- 
+
 export default ActivityForm;
