@@ -23,6 +23,7 @@ export default class UserSignupForm extends Component {
         console.log(res);
         if (!res.data.errmsg) {
           localStorage.setItem('accessToken', res.data.user.authentication_token)
+          localStorage.setItem('email', res.data.user.email)
           alert("Thanks for signing up!!");
         } else {
           alert("email already used");
