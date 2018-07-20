@@ -25,13 +25,13 @@ class Activity extends React.Component {
             }
           }).then(res => {
       if(res.status === 200)
-        // console.log(res.data)
-        // setSTATE of activities[] => to response.data array[]
+        console.log(res.data)
+        // 👇 setSTATE of activities[] => to response.data array[]
         this.setState({ activities: res.data })
       ;
     })
   }
-  // this element handles the
+  // this element handles the form change and captures that value
   handleChange = event => {
     let inputValue = event.target.name;
     inputValue = event.target.value;

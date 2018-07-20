@@ -7,9 +7,7 @@ import Activity from './Activity';
 
 const Header = () => {
   if (localStorage.accessToken) {
-
     return (
-
       <header>
         <nav>
           <ul>
@@ -30,7 +28,6 @@ const Header = () => {
   }
   else {
     return (
-
       <header>
         <nav>
           <ul>
