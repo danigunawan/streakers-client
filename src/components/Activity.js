@@ -15,17 +15,23 @@ class Activity extends React.Component {
   //   this.props.activities.remove(this.props.id);
   // }
 
+  // lifecycle function => fetches our ACTIVITIES from API via AXIOS
   componentDidMount() {
-    axios({ method: 'get',
+    axios({ method: 'GET',
             url: 'http://localhost:3001/v1/activities',
-            headers: { 'X-User-Email': localStorage.email, 'X-User-Token': localStorage.accessToken }
+            headers: {
+              'X-User-Email': localStorage.email,
+              'X-User-Token': localStorage.accessToken
+            }
           }).then(res => {
       if(res.status === 200)
-      console.log(res.data)
-        this.setState({ activities: res.data });
+        // console.log(res.data)
+        // setSTATE of activities[] => to response.data array[]
+        this.setState({ activities: res.data })
+      ;
     })
   }
-
+  // this element handles the
   handleChange = event => {
     let inputValue = event.target.name;
     inputValue = event.target.value;
@@ -34,18 +40,25 @@ class Activity extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    // this 👇 is the data we are sending to our rails api
     const toSend = this.state.content;
+    // this 👇 clears content of the input
+    this.setState({content: ""});
 
     axios({
-            method: 'post',
+            method: 'POST',
             url: 'http://localhost:3001/v1/activities',
             data: {
               title: toSend
             },
-            headers: { 'X-User-Email': localStorage.email, 'X-User-Token': localStorage.accessToken }
+            headers: {
+              'X-User-Email': localStorage.email,
+              'X-User-Token': localStorage.accessToken
+            }
           }).then(res => {
         if (res && res.data) {
-          console.log(res);
+          // console.log(res.data.user);
+          this.setState(( preState ) => ({ activities: preState.activities.concat([res.data.activity]) }));
         }
       })
       .catch(err => {
@@ -68,21 +81,19 @@ class Activity extends React.Component {
           </div>
         </Form>
       );
-    } else {
-
+    }
+    else {
       return (
         <div className=''>
           <h1> Activity Title</h1>
           <h3>
-            {this.state.activities.map((activity, index) =>
-              {
-                return (
-                  <div key={index}>
-                    <p>{activity.title}</p>
-                  </div>
-                )
-              }
-            )}
+            {this.state.activities.map((activity, index) => {
+              return (
+                <div key={index}>
+                  <p>{activity.title}</p>
+                </div>
+              )
+            })}
             <Form onSubmit={this.handleSubmit}>
               <Input
                 type="text"
@@ -91,7 +102,7 @@ class Activity extends React.Component {
                 onChange={this.handleChange}
               />
               <div>
-                <Button type="submit">Create An Activity</Button>
+                <Button type="submit">Add New Activity</Button>
               </div>
             </Form>
           </h3>
