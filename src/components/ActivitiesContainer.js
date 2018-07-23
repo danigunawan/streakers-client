@@ -1,11 +1,11 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
+// import { inject, observer } from 'mobx-react';
 import axios from "axios";
 import { Form, Input, Button } from 'reactstrap';
 
 // @inject(['activities'])
 // @observer
-class Activity extends React.Component {
+class ActivitiesContainer extends React.Component {
   state = {
     content: "",
     activities: []
@@ -114,4 +114,4 @@ class Activity extends React.Component {
   }
 }
 
-export default Activity;
+export default ActivitiesContainer;
