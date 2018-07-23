@@ -3,6 +3,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 import Welcome from './Welcome';
 import UserSignupForm from './UserSignupForm';
 import UserSigninForm from './UserSigninForm';
+import UserSignoutForm from './UserSignoutForm';
 import Activity from './Activity';
 
 const Header = () => {
@@ -13,6 +14,7 @@ const Header = () => {
           <ul>
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/activities'>Activities</Link></li>
+            <li><Link to='/usersignout'>Sign Out</Link></li>
           </ul>
         </nav>
 
@@ -20,6 +22,7 @@ const Header = () => {
           <Route exact path='/' component={Welcome} />
           <Route path='/usersignup' component={UserSignupForm}/>
           <Route path='/usersignin' component={UserSigninForm}/>
+          <Route path='/usersignout' component={UserSignoutForm}/>
           <Route path='/activities' component={Activity}/>
         </Switch>
 
@@ -41,6 +44,7 @@ const Header = () => {
           <Route exact path='/' component={Welcome} />
           <Route path='/usersignup' component={UserSignupForm}/>
           <Route path='/usersignin' component={UserSigninForm}/>
+          <Route path='/usersignout' component={UserSignoutForm}/>
           <Route path='/activities' component={Activity}/>
         </Switch>
 

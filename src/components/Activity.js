@@ -58,7 +58,9 @@ class Activity extends React.Component {
           }).then(res => {
         if (res && res.data) {
           // console.log(res.data.user);
-          this.setState(( preState ) => ({ activities: preState.activities.concat([res.data.activity]) }));
+          this.setState(( preState ) =>
+            ({ activities: preState.activities.concat([res.data.activity]) })
+          );
         }
       })
       .catch(err => {
@@ -85,7 +87,7 @@ class Activity extends React.Component {
     else {
       return (
         <div className=''>
-          <h1> Activity Title</h1>
+          <h1> Your Activities: </h1>
           <h3>
             {this.state.activities.map((activity, index) => {
               return (
