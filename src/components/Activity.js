@@ -26,7 +26,7 @@ class Activity extends React.Component {
           }).then(res => {
       if(res.status === 200)
         console.log(res.data)
-        // 👇 setSTATE of activities[] => to response.data array[]
+        // 👇 setSTATE of activities[] to response.data array[]
         this.setState({ activities: res.data })
       ;
     })
@@ -57,7 +57,7 @@ class Activity extends React.Component {
             }
           }).then(res => {
         if (res && res.data) {
-          // console.log(res.data.user);
+          // console.log(res.data.activity);
           this.setState(( preState ) =>
             ({ activities: preState.activities.concat([res.data.activity]) })
           );
@@ -89,9 +89,9 @@ class Activity extends React.Component {
         <div className=''>
           <h1> Your Activities: </h1>
           <h3>
-            {this.state.activities.map((activity, index) => {
+            {this.state.activities.map((activity) => {
               return (
-                <div key={index}>
+                <div className="activity-column" key={activity.id}>
                   <p>{activity.title}</p>
                 </div>
               )
