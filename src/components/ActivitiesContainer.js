@@ -1,4 +1,5 @@
 import React from 'react';
+import Activity from './Activity';
 // import { inject, observer } from 'mobx-react';
 import axios from "axios";
 import { Form, Input, Button } from 'reactstrap';
@@ -91,9 +92,8 @@ class ActivitiesContainer extends React.Component {
           <h3>
             {this.state.activities.map((activity) => {
               return (
-                <div className="activity-column" key={activity.id}>
-                  <p>{activity.title}</p>
-                </div>
+                // 👇 this renders our stateless Activity component
+                <Activity activity={activity} key={activity.id} />
               )
             })}
             <Form onSubmit={this.handleSubmit}>
