@@ -4,7 +4,7 @@ import Welcome from './Welcome';
 import UserSignupForm from './UserSignupForm';
 import UserSigninForm from './UserSigninForm';
 import UserSignoutForm from './UserSignoutForm';
-import Activity from './Activity';
+import ActivitiesContainer from './ActivitiesContainer';
 
 const Header = () => {
   if (localStorage.accessToken) {
@@ -23,7 +23,7 @@ const Header = () => {
           <Route path='/usersignup' component={UserSignupForm}/>
           <Route path='/usersignin' component={UserSigninForm}/>
           <Route path='/usersignout' component={UserSignoutForm}/>
-          <Route path='/activities' component={Activity}/>
+          <Route path='/activities' component={ActivitiesContainer}/>
         </Switch>
 
       </header>
@@ -45,7 +45,7 @@ const Header = () => {
           <Route path='/usersignup' component={UserSignupForm}/>
           <Route path='/usersignin' component={UserSigninForm}/>
           <Route path='/usersignout' component={UserSignoutForm}/>
-          <Route path='/activities' component={Activity}/>
+          <Route path='/activities' component={ActivitiesContainer}/>
         </Switch>
 
       </header>
