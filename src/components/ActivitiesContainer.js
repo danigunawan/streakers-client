@@ -126,6 +126,7 @@ class ActivitiesContainer extends React.Component {
               } else {
                 return (
                   // 👇 this renders our Activity component
+                  // we are passing a prop down to Activity component called <onCLick> which contains enableEditing method
                   <Activity activity={activity} key={activity.id} onClick={this.enableEditing} />
                 )
               }
