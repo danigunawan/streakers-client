@@ -80,18 +80,17 @@ class ActivitiesContainer extends React.Component {
   }
 
   updateActivity = (activity) => {
+    // this takes the activity object that comes back from the axios put and contains our .id and .title
+    // here we are going through our activities array and finding an index of an object that will be equal to the id of the activity that comes back in the axios PUT response
+    // activity.id in this context is (response.data.activity.id)
     const activityIndex = this.state.activities.findIndex(x => x.id === activity.id)
 
+    // here we are creating a copy of the state.activities array and then using the immutability-helper UPDATE method to $set our new activity object that comes back with our new title from the axios PUT method inside ActivityForm to the object found/set inside activityIndex
     const activities = update(this.state.activities, {
       [activityIndex]: { $set: activity }
     })
-
-    // console.log(activity)
-
+    // then we setState of the activities from our copy
     this.setState({activities: activities})
-    // this.setState(( preState ) =>
-    //   ({ activities: preState.activities.concat([activity.title]) })
-    // );
 
   }
 
@@ -120,6 +119,8 @@ class ActivitiesContainer extends React.Component {
             {this.state.activities.map((activity) => {
               if(this.state.editingActivityId === activity.id) {
                 return(
+                  // this renders our ActivityForm and passes a prop updateActivity = that calls this.updateActivity function in the current component
+                  // 👇 these are all the PROPS we send to ActivityForm
                   <ActivityForm activity={activity} key={activity.id} updateActivity={this.updateActivity} />
                 )
               } else {

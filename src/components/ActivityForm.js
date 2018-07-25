@@ -31,7 +31,7 @@ class ActivityForm extends Component {
             }
           }).then(response => {
             console.log(response.data.activity)
-            // this is where we pass the response obect to our updateActivity function
+            // this is where we pass the response object ACTIVITY to our updateActivity function
             this.props.updateActivity(response.data.activity)
     })
     .catch(error => console.log(error)
