@@ -1,8 +1,10 @@
 import React from 'react';
-import Activity from './Activity';
-// import { inject, observer } from 'mobx-react';
-import axios from "axios";
+import axios from 'axios';
 import { Form, Input, Button } from 'reactstrap';
+import update from 'immutability-helper';
+import Activity from './Activity';
+import ActivityForm from './ActivityForm'
+// import { inject, observer } from 'mobx-react';
 
 // @inject(['activities'])
 // @observer
@@ -35,6 +37,7 @@ class ActivitiesContainer extends React.Component {
       ;
     })
   }
+
   // this element handles the form change and captures that value
   handleInput = event => {
     let inputValue = event.target.name;
@@ -72,6 +75,26 @@ class ActivitiesContainer extends React.Component {
       })
   };
 
+  enableEditing = (id) => {
+    this.setState({editingActivityId: id})
+  }
+
+  updateActivity = (activity) => {
+    const activityIndex = this.state.activities.findIndex(x => x.id === activity.id)
+
+    const activities = update(this.state.activities, {
+      [activityIndex]: { $set: activity }
+    })
+
+    // console.log(activity)
+
+    this.setState({activities: activities})
+    // this.setState(( preState ) =>
+    //   ({ activities: preState.activities.concat([activity.title]) })
+    // );
+
+  }
+
   render() {
     if (this.state.activities.length === 0) {
       return (
@@ -93,12 +116,20 @@ class ActivitiesContainer extends React.Component {
         <div className=''>
           <h1> Your Activities: </h1>
           <h3>
+
             {this.state.activities.map((activity) => {
-              return (
-                // 👇 this renders our stateless Activity component
-                <Activity activity={activity} key={activity.id} />
-              )
+              if(this.state.editingActivityId === activity.id) {
+                return(
+                  <ActivityForm activity={activity} key={activity.id} updateActivity={this.updateActivity} />
+                )
+              } else {
+                return (
+                  // 👇 this renders our Activity component
+                  <Activity activity={activity} key={activity.id} onClick={this.enableEditing} />
+                )
+              }
             })}
+
             <Form onSubmit={this.handleSubmit}>
               <Input
                 type="text"
@@ -110,6 +141,7 @@ class ActivitiesContainer extends React.Component {
                 <Button className="newActivityButton" type="submit">Add New Activity</Button>
               </div>
             </Form>
+
           </h3>
         </div>
       );
