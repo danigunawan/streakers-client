@@ -91,7 +91,25 @@ class ActivitiesContainer extends React.Component {
     })
     // then we setState of the activities from our copy
     this.setState({activities: activities})
+  }
 
+  deleteIdea = (id) => {
+    axios({
+      method: 'DELETE',
+            url: `http://localhost:3001/v1/activities/${id}`,
+            headers: {
+              'X-User-Email': localStorage.email,
+              'X-User-Token': localStorage.accessToken
+            }
+    })
+    .then(response => {
+      console.log(response)
+      const activityIndex = this.state.activities.findIndex(x => x.id === id)
+      // use update with the $splice command to create a new array of ideas, and then update state.ideas with that
+      const activities = update(this.state.activities, { $splice: [[activityIndex, 1]]})
+      this.setState({activities: activities})
+    })
+    .catch(error => console.log(error))
   }
 
   render() {
@@ -127,7 +145,7 @@ class ActivitiesContainer extends React.Component {
                 return (
                   // 👇 this renders our Activity component
                   // we are passing a prop down to Activity component called <onCLick> which contains enableEditing method
-                  <Activity activity={activity} key={activity.id} onClick={this.enableEditing} />
+                  <Activity activity={activity} key={activity.id} onClick={this.enableEditing} onDelete={this.deleteIdea} />
                 )
               }
             })}

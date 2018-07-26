@@ -7,10 +7,15 @@ class Activity extends Component {
     this.props.onClick(this.props.activity.id)
   }
 
+  handleDelete = () => {
+    // we are calling another function onDelete that is passed in from ActivitiesContainer as a prop and giving that method the activity.id
+    this.props.onDelete(this.props.activity.id)
+  }
+
   render () {
     return(
       <div className="tile">
-        <span className="deleteButton">
+        <span className="deleteButton" onClick={this.handleDelete}>
           x
         </span>
         <h4 onClick={this.handleClick}>
