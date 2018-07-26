@@ -133,7 +133,6 @@ class ActivitiesContainer extends React.Component {
         <div className=''>
           <h1> Your Activities: </h1>
           <h3>
-
             {this.state.activities.map((activity) => {
               if(this.state.editingActivityId === activity.id) {
                 return(
@@ -141,7 +140,9 @@ class ActivitiesContainer extends React.Component {
                   // 👇 these are all the PROPS we send to ActivityForm
                   <ActivityForm activity={activity} key={activity.id} updateActivity={this.updateActivity} />
                 )
-              } else {
+              }
+
+              else {
                 return (
                   // 👇 this renders our Activity component
                   // we are passing a prop down to Activity component called <onCLick> which contains enableEditing method

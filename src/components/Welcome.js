@@ -15,20 +15,38 @@ export default class Welcome extends Component {
     }
   }
   render() {
-    return (
-      <div>
-        <h1> Welcome to Streakers </h1>
-        <h4> Please login or register to get started 🌀 </h4>
-        <div className="chart">
-          <Doughnut
-            data={this.state.chartData}
-            options={{
-                maintainAspectRatio: false,
-                cutoutPercentage: 30
-              }}
-          />
+    if (localStorage.accessToken) {
+      return (
+        <div>
+          <h1> Welcome to Streakers </h1>
+          <div className="chart">
+            <Doughnut
+              data={this.state.chartData}
+              options={{
+                  maintainAspectRatio: false,
+                  cutoutPercentage: 30
+                }}
+            />
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
+    else {
+      return (
+        <div>
+          <h1> Welcome to Streakers </h1>
+          <h4> Please login or register to get started 🌀 </h4>
+          <div className="chart">
+            <Doughnut
+              data={this.state.chartData}
+              options={{
+                  maintainAspectRatio: false,
+                  cutoutPercentage: 30
+                }}
+            />
+          </div>
+        </div>
+      )
+    }
   }
 }
