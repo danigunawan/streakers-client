@@ -9,10 +9,11 @@ import ActivityForm from './ActivityForm'
 // @inject(['activities'])
 // @observer
 class ActivitiesContainer extends React.Component {
+// ------------> STATE:
   state = {
-
-    content: "",
+    inputTitle: "",
     activities: [],
+    streaks: [],
     editingActivityId: null
 
   };
@@ -21,6 +22,7 @@ class ActivitiesContainer extends React.Component {
   //   this.props.activities.remove(this.props.id);
   // }
 
+// -------------> METHODS:
   // lifecycle function => fetches our ACTIVITIES from API via AXIOS
   componentDidMount() {
     axios({ method: 'GET',
@@ -29,11 +31,24 @@ class ActivitiesContainer extends React.Component {
               'X-User-Email': localStorage.email,
               'X-User-Token': localStorage.accessToken
             }
-          }).then(res => {
-      if(res.status === 200)
-        console.log(res.data)
+          }).then(activitiesRes => {
+      if(activitiesRes.status === 200)
+        console.log(activitiesRes.data)
         // 👇 setSTATE of activities[] to response.data array[]
-        this.setState({ activities: res.data })
+        this.setState({ activities: activitiesRes.data })
+      ;
+    }),
+    axios({ method: 'GET',
+            url: 'http://localhost:3001/v1/activities/-/streaks',
+            headers: {
+              'X-User-Email': localStorage.email,
+              'X-User-Token': localStorage.accessToken
+            }
+          }).then(streaksRes => {
+      if(streaksRes.status === 200)
+        console.log(streaksRes.data)
+        // 👇 setSTATE of activities[] to response.data array[]
+        this.setState({ streaks: streaksRes.data })
       ;
     })
   }
@@ -42,15 +57,15 @@ class ActivitiesContainer extends React.Component {
   handleInput = event => {
     let inputValue = event.target.name;
     inputValue = event.target.value;
-    this.setState({ content: inputValue })
+    this.setState({ inputTitle: inputValue })
   }
 
   handleSubmit = event => {
     event.preventDefault();
     // this 👇 is the form data (captured above in handleChange) that we are sending to our rails api
-    const toSend = this.state.content;
-    // this 👇 clears content of the input field form
-    this.setState({ content: "" });
+    const toSend = this.state.inputTitle;
+    // this 👇 clears inputTitle of the input field form
+    this.setState({ inputTitle: "" });
 
     axios({
             method: 'POST',
@@ -112,14 +127,15 @@ class ActivitiesContainer extends React.Component {
     .catch(error => console.log(error))
   }
 
+// STUFF ON PAGE
   render() {
     if (this.state.activities.length === 0) {
       return (
         <Form onSubmit={this.handleSubmit}>
           <Input
             type="text"
-            name="content"
-            value={this.state.content}
+            name="inputTitle"
+            value={this.state.inputTitle}
             onChange={this.handleInput}
           />
           <div>
@@ -154,8 +170,8 @@ class ActivitiesContainer extends React.Component {
             <Form onSubmit={this.handleSubmit}>
               <Input
                 type="text"
-                name="content"
-                value={this.state.content}
+                name="inputTitle"
+                value={this.state.inputTitle}
                 onChange={this.handleInput}
               />
               <div>

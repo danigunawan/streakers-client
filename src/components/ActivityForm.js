@@ -14,7 +14,6 @@ class ActivityForm extends Component {
   }
 
   handleBlur = () => {
-
     const activity = {
       title: this.state.title
     }
