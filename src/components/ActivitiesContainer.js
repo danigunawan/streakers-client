@@ -3,7 +3,8 @@ import axios from 'axios';
 import { Form, Input, Button } from 'reactstrap';
 import update from 'immutability-helper';
 import Activity from './Activity';
-import ActivityForm from './ActivityForm'
+import ActivityForm from './ActivityForm';
+import StreaksContainer from './StreaksContainer';
 // import { inject, observer } from 'mobx-react';
 
 // @inject(['activities'])
@@ -33,7 +34,7 @@ class ActivitiesContainer extends React.Component {
             }
           }).then(activitiesRes => {
       if(activitiesRes.status === 200)
-        console.log(activitiesRes.data)
+        console.log("from componentDidMount",activitiesRes.data)
         // 👇 setSTATE of activities[] to response.data array[]
         this.setState({ activities: activitiesRes.data })
       ;
@@ -46,8 +47,8 @@ class ActivitiesContainer extends React.Component {
             }
           }).then(streaksRes => {
       if(streaksRes.status === 200)
-        console.log(streaksRes.data)
-        // 👇 setSTATE of activities[] to response.data array[]
+        console.log("from componentDidMount", streaksRes.data)
+        // 👇 setSTATE of streaks[] to response.data array[]
         this.setState({ streaks: streaksRes.data })
       ;
     })
@@ -148,38 +149,39 @@ class ActivitiesContainer extends React.Component {
       return (
         <div className=''>
           <h1> Your Activities: </h1>
-          <h3>
-            {this.state.activities.map((activity) => {
-              if(this.state.editingActivityId === activity.id) {
-                return(
-                  // this renders our ActivityForm and passes a prop updateActivity = that calls this.updateActivity function in the current component
-                  // 👇 these are all the PROPS we send to ActivityForm
-                  <ActivityForm activity={activity} key={activity.id} updateActivity={this.updateActivity} />
-                )
-              }
 
-              else {
-                return (
-                  // 👇 this renders our Activity component
-                  // we are passing a prop down to Activity component called <onCLick> which contains enableEditing method
-                  <Activity activity={activity} key={activity.id} onClick={this.enableEditing} onDelete={this.deleteIdea} />
-                )
-              }
-            })}
+          {this.state.activities.map((activity) => {
+            if(this.state.editingActivityId === activity.id) {
+              return(
+                // this renders our ActivityForm and passes a prop updateActivity = that calls this.updateActivity function in the current component
+                // 👇 these are all the PROPS we send to ActivityForm
+                <ActivityForm activity={activity} key={activity.id} updateActivity={this.updateActivity} />
+              )
+            }
 
-            <Form onSubmit={this.handleSubmit}>
-              <Input
-                type="text"
-                name="inputTitle"
-                value={this.state.inputTitle}
-                onChange={this.handleInput}
-              />
-              <div>
-                <Button className="newActivityButton" type="submit">Add New Activity</Button>
-              </div>
-            </Form>
+            else {
+              return (
+                // 👇 this renders our Activity component
+                // we are passing a prop down to Activity component called <onCLick> which contains enableEditing method
+                <div>
+                  <Activity activity={activity} key={activity.id} onClick={this.enableEditing} onDelete={this.deleteIdea} streaks={this.state.streaks} />
+                </div>
+              )
+            }
+          })}
 
-          </h3>
+          <Form onSubmit={this.handleSubmit}>
+            <Input
+              type="text"
+              name="inputTitle"
+              value={this.state.inputTitle}
+              onChange={this.handleInput}
+            />
+            <div>
+              <Button className="newActivityButton" type="submit">Add New Activity</Button>
+            </div>
+          </Form>
+
         </div>
       );
     }

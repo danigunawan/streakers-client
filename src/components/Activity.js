@@ -13,14 +13,21 @@ class Activity extends Component {
   }
 
   render () {
+    // https://stackoverflow.com/questions/45857698/loop-through-simple-array-of-objects-in-react
+    const streakStatus = this.props.streaks.map((streak) =>
+        <h5 key={streak.id}>{streak.status}</h5>
+    );
     return(
       <div className="tile">
+
         <span className="deleteButton" onClick={this.handleDelete}>
           x
         </span>
         <h4 onClick={this.handleClick}>
           {this.props.activity.title}
         </h4>
+
+        { streakStatus }
       </div>
     )
   }
