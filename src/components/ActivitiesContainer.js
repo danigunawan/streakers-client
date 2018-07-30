@@ -34,7 +34,7 @@ class ActivitiesContainer extends React.Component {
             }
           }).then(activitiesRes => {
       if(activitiesRes.status === 200)
-        console.log("from componentDidMount",activitiesRes.data)
+        // console.log("from componentDidMount",activitiesRes.data)
         // 👇 setSTATE of activities[] to response.data array[]
         this.setState({ activities: activitiesRes.data })
       ;
@@ -47,7 +47,7 @@ class ActivitiesContainer extends React.Component {
             }
           }).then(streaksRes => {
       if(streaksRes.status === 200)
-        console.log("from componentDidMount", streaksRes.data)
+        // console.log("from componentDidMount", streaksRes.data)
         // 👇 setSTATE of streaks[] to response.data array[]
         this.setState({ streaks: streaksRes.data })
       ;
@@ -163,9 +163,7 @@ class ActivitiesContainer extends React.Component {
               return (
                 // 👇 this renders our Activity component
                 // we are passing a prop down to Activity component called <onCLick> which contains enableEditing method
-                <div>
-                  <Activity activity={activity} key={activity.id} onClick={this.enableEditing} onDelete={this.deleteIdea} streaks={this.state.streaks} />
-                </div>
+                <Activity activity={activity} key={activity.id} onClick={this.enableEditing} onDelete={this.deleteIdea} streaks={this.state.streaks} />
               )
             }
           })}
