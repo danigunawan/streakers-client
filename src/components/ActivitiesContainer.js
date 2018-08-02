@@ -4,24 +4,14 @@ import { Form, Input, Button } from 'reactstrap';
 import update from 'immutability-helper';
 import Activity from './Activity';
 import ActivityForm from './ActivityForm';
-import StreaksContainer from './StreaksContainer';
-// import { inject, observer } from 'mobx-react';
 
-// @inject(['activities'])
-// @observer
 class ActivitiesContainer extends React.Component {
 // ------------> STATE:
   state = {
     inputTitle: "",
     activities: [],
-    streaks: [],
     editingActivityId: null
-
   };
-  // removeActivity = (e) => {
-  //   e.preventDefault();
-  //   this.props.activities.remove(this.props.id);
-  // }
 
 // -------------> METHODS:
   // lifecycle function => fetches our ACTIVITIES from API via AXIOS
@@ -37,19 +27,6 @@ class ActivitiesContainer extends React.Component {
         // console.log("from componentDidMount",activitiesRes.data)
         // 👇 setSTATE of activities[] to response.data array[]
         this.setState({ activities: activitiesRes.data })
-      ;
-    }),
-    axios({ method: 'GET',
-            url: 'http://localhost:3001/v1/activities/-/streaks',
-            headers: {
-              'X-User-Email': localStorage.email,
-              'X-User-Token': localStorage.accessToken
-            }
-          }).then(streaksRes => {
-      if(streaksRes.status === 200)
-        // console.log("from componentDidMount", streaksRes.data)
-        // 👇 setSTATE of streaks[] to response.data array[]
-        this.setState({ streaks: streaksRes.data })
       ;
     })
   }
@@ -151,6 +128,7 @@ class ActivitiesContainer extends React.Component {
           <h1> Your Activities: </h1>
 
           {this.state.activities.map((activity) => {
+            // console.log(activity)
             if(this.state.editingActivityId === activity.id) {
               return(
                 // this renders our ActivityForm and passes a prop updateActivity = that calls this.updateActivity function in the current component
@@ -163,7 +141,13 @@ class ActivitiesContainer extends React.Component {
               return (
                 // 👇 this renders our Activity component
                 // we are passing a prop down to Activity component called <onCLick> which contains enableEditing method
-                <Activity activity={activity} key={activity.id} onClick={this.enableEditing} onDelete={this.deleteIdea} streaks={this.state.streaks} />
+                <Activity
+                  // 👇 props passed to Activity container
+                  activity={activity}
+                  key={activity.id}
+                  onClick={this.enableEditing}
+                  onDelete={this.deleteIdea}
+                />
               )
             }
           })}

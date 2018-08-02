@@ -14,30 +14,26 @@ class Activity extends Component {
   }
 
   render () {
-    // https://stackoverflow.com/questions/45857698/loop-through-simple-array-of-objects-in-react
 
-    const currentStreak = this.props.streaks.map((streak) => {
-      if(this.props.activity.id === streak.activity_id) {
-        // console.log(streak.current_streak)
-        return streak.current_streak
-      }
-    })
 
     return(
       <div className="tile">
-
+        {/* this👇 passes the onClick event to the handleDelete callback fxn above */}
         <span className="deleteButton" onClick={this.handleDelete}>
-          x
+          X
         </span>
-        <h4 onClick={this.handleClick}>
+        {/* this👇 passes the onClick event to the handleClick callback fxn above */}
+        <h2 onClick={this.handleClick}>
           {this.props.activity.title}
-
-        </h4>
+        </h2>
         <h2>Current Streak:</h2>
-          <h3>
-            {currentStreak}
-          </h3>
-
+        <h3>
+          { this.props.activity.streaks[0] === undefined ? "no streak" : this.props.activity.streaks[0].current_streak }
+        </h3>
+        <h2>Streak Status:</h2>
+        <h3>
+          {/* {this.props.activity.streaks[0].status} */}
+        </h3>
       </div>
     )
   }

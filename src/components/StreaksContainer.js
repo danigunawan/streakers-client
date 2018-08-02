@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class StreaksContainer extends Component {
   // constructor(props) {
@@ -8,6 +9,22 @@ class StreaksContainer extends Component {
   //   }
     // console.log("this is from StreaksContainer", this.props.streaks)
   // }
+
+  componentDidMount() {
+    axios({ method: 'GET',
+            url: 'http://localhost:3001/v1/activities/-/streaks',
+            headers: {
+              'X-User-Email': localStorage.email,
+              'X-User-Token': localStorage.accessToken
+            }
+          }).then(streaksRes => {
+      if(streaksRes.status === 200)
+        // console.log("from componentDidMount", streaksRes.data)
+        // 👇 setSTATE of streaks[] to response.data array[]
+        this.setState({ streaks: streaksRes.data })
+      ;
+    })
+  }
 
 
   // console.log(this.props.streaks)
