@@ -22,13 +22,19 @@ class ActivitiesContainer extends React.Component {
               'X-User-Email': localStorage.email,
               'X-User-Token': localStorage.accessToken
             }
-          }).then(activitiesRes => {
-      if(activitiesRes.status === 200)
+          })
+    .then(activitiesRes => {
+      if (activitiesRes.status === 200) {
         // console.log("from componentDidMount",activitiesRes.data)
         // 👇 setSTATE of activities[] to response.data array[]
         this.setState({ activities: activitiesRes.data })
-      ;
+      } else {
+        alert("could not fetch activities")
+      };
     })
+    .catch(function(error) {
+      console.log(error);
+    });
   }
 
   // this element handles the form change and captures that value
@@ -70,6 +76,7 @@ class ActivitiesContainer extends React.Component {
 
   enableEditing = (id) => {
     this.setState({editingActivityId: id})
+    console.log('Click happened caught inside Activites Container', id)
   }
 
   updateActivity = (activity) => {
@@ -86,7 +93,7 @@ class ActivitiesContainer extends React.Component {
     this.setState({activities: activities})
   }
 
-  deleteIdea = (id) => {
+  deleteActivity = (id) => {
     axios({
       method: 'DELETE',
             url: `http://localhost:3001/v1/activities/${id}`,
@@ -96,7 +103,6 @@ class ActivitiesContainer extends React.Component {
             }
     })
     .then(response => {
-      console.log(response)
       const activityIndex = this.state.activities.findIndex(x => x.id === id)
       // use update with the $splice command to create a new array of ideas, and then update state.ideas with that
       const activities = update(this.state.activities, { $splice: [[activityIndex, 1]]})
@@ -107,6 +113,7 @@ class ActivitiesContainer extends React.Component {
 
 // STUFF ON PAGE
   render() {
+    // IF NO ACTIVITIES ==> INPUT FORM
     if (this.state.activities.length === 0) {
       return (
         <Form onSubmit={this.handleSubmit}>
@@ -122,13 +129,15 @@ class ActivitiesContainer extends React.Component {
         </Form>
       );
     }
+
     else {
       return (
         <div className=''>
           <h1> Your Activities: </h1>
 
           {this.state.activities.map((activity) => {
-            // console.log(activity)
+
+            // ACTIVITY FORM
             if(this.state.editingActivityId === activity.id) {
               return(
                 // this renders our ActivityForm and passes a prop updateActivity = that calls this.updateActivity function in the current component
@@ -136,7 +145,7 @@ class ActivitiesContainer extends React.Component {
                 <ActivityForm activity={activity} key={activity.id} updateActivity={this.updateActivity} />
               )
             }
-
+            // ACTIVITY COMPONENT
             else {
               return (
                 // 👇 this renders our Activity component
@@ -146,10 +155,11 @@ class ActivitiesContainer extends React.Component {
                   activity={activity}
                   key={activity.id}
                   onClick={this.enableEditing}
-                  onDelete={this.deleteIdea}
+                  onDelete={this.deleteActivity}
                 />
               )
             }
+
           })}
 
           <Form onSubmit={this.handleSubmit}>

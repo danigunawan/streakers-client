@@ -7,6 +7,7 @@ class ActivityForm extends Component {
     this.state = {
       title: this.props.activity.title
     }
+    // console.log(this.props.activity.title, "inside ActivityForm")
   }
 
   handleInput = (event) => {
@@ -28,13 +29,12 @@ class ActivityForm extends Component {
               'X-User-Email': localStorage.email,
               'X-User-Token': localStorage.accessToken
             }
-          }).then(response => {
-            console.log(response.data.activity)
-            // this is where we run the updateActivity method + pass the response object ACTIVITY as the arguement
-            this.props.updateActivity(response.data.activity)
+          })
+    .then(response => {
+      // console.log("response from ActivityForm handleBlur", response.data)
+      // this is where we run the updateActivity method + pass the response object ACTIVITY as the arguement
+      this.props.updateActivity(response.data)
     })
-    .catch(error => console.log(error)
-    )
   }
 
   render() {
