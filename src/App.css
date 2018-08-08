@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  padding: 40px;
+  padding: 10px;
   height: 100%;
   color: black;
   background-color: #ffc9a3;
@@ -30,16 +30,21 @@
 }
 
 .activity-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /*flex-direction: column;*/
   /*flex: 1 10%;*/
   flex-basis: 50%;
   /*float: inherit;*/
 }
 
 .activity-tile {
-  margin: 3%;
+  margin: 1%;
   padding: 1%;
   background: #C0EAF0;
   font-size: 14px;
+  width: 300px;
 }
 
 .edit-title-input {
