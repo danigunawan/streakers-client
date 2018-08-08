@@ -75,7 +75,9 @@ class ActivitiesContainer extends React.Component {
   };
 
   enableEditing = (id) => {
-    this.setState({editingActivityId: id})
+    this.setState({editingActivityId: id},
+      () => { this.title.focus() }
+    )
     console.log('Click happened caught inside Activites Container', id)
   }
 
@@ -124,7 +126,7 @@ class ActivitiesContainer extends React.Component {
             onChange={this.handleInput}
           />
           <div>
-            <Button type="submit">Create An Activity</Button>
+            <Button className="newActivityButton" type="submit">Create An Activity</Button>
           </div>
         </Form>
       );
@@ -133,17 +135,19 @@ class ActivitiesContainer extends React.Component {
     else {
       return (
         <div className="activities">
+
           <h1> Your Activities: </h1>
+
           <div className="activity-card">
 
             {this.state.activities.map((activity) => {
 
-              // ACTIVITY FORM
+              // EDIT ACTIVITY TITLE FORM
               if(this.state.editingActivityId === activity.id) {
                 return(
                   // this renders our ActivityForm and passes a prop updateActivity = that calls this.updateActivity function in the current component
                   // 👇 these are all the PROPS we send to ActivityForm
-                  <ActivityForm activity={activity} key={activity.id} updateActivity={this.updateActivity} />
+                  <ActivityForm activity={activity} key={activity.id} updateActivity={this.updateActivity} titleRef= {input => this.title = input} />
                 )
               }
               // ACTIVITY COMPONENT
@@ -162,7 +166,7 @@ class ActivitiesContainer extends React.Component {
               }
 
             })}
-            
+
           </div>
 
           <Form onSubmit={this.handleSubmit}>

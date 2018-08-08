@@ -1,5 +1,5 @@
-body {
-  margin: 10;
-  padding: 10;
+html, body{
   font-family: sans-serif;
+  height: 100%;
+  background-color: #ffc9a3;
 }

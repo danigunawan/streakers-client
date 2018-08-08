@@ -17,8 +17,8 @@ export default class Welcome extends Component {
   render() {
     if (localStorage.accessToken) {
       return (
-        <div>
-          <h1> Welcome to Streakers </h1>
+        <div className="welcome">
+          <h1> Welcome to Streakrs </h1>
           <div className="chart">
             <Doughnut
               data={this.state.chartData}
@@ -33,8 +33,8 @@ export default class Welcome extends Component {
     }
     else {
       return (
-        <div>
-          <h1> Welcome to Streakers </h1>
+        <div className="welcome">
+          <h1> Welcome to Streakrs </h1>
           <h4> Please login or register to get started 🌀 </h4>
           <div className="chart">
             <Doughnut
