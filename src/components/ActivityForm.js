@@ -39,9 +39,9 @@ class ActivityForm extends Component {
 
   render() {
     return (
-      <div className="tile">
+      <div className="activity-tile">
         <form onBlur={this.handleBlur}>
-          <input className='input' type="text" name="title" value={this.state.title} onChange={this.handleInput} />
+          <input className='edit-title-input' type="text" name="title" value={this.state.title} onChange={this.handleInput} />
         </form>
       </div>
     );

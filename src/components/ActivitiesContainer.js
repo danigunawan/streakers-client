@@ -132,35 +132,38 @@ class ActivitiesContainer extends React.Component {
 
     else {
       return (
-        <div className=''>
+        <div className="activities">
           <h1> Your Activities: </h1>
+          <div className="activity-card">
 
-          {this.state.activities.map((activity) => {
+            {this.state.activities.map((activity) => {
 
-            // ACTIVITY FORM
-            if(this.state.editingActivityId === activity.id) {
-              return(
-                // this renders our ActivityForm and passes a prop updateActivity = that calls this.updateActivity function in the current component
-                // 👇 these are all the PROPS we send to ActivityForm
-                <ActivityForm activity={activity} key={activity.id} updateActivity={this.updateActivity} />
-              )
-            }
-            // ACTIVITY COMPONENT
-            else {
-              return (
-                // 👇 this renders our Activity component
-                // we are passing a prop down to Activity component called <onCLick> which contains enableEditing method
-                <Activity
-                  // 👇 props passed to Activity container
-                  activity={activity}
-                  key={activity.id}
-                  onClick={this.enableEditing}
-                  onDelete={this.deleteActivity}
-                />
-              )
-            }
+              // ACTIVITY FORM
+              if(this.state.editingActivityId === activity.id) {
+                return(
+                  // this renders our ActivityForm and passes a prop updateActivity = that calls this.updateActivity function in the current component
+                  // 👇 these are all the PROPS we send to ActivityForm
+                  <ActivityForm activity={activity} key={activity.id} updateActivity={this.updateActivity} />
+                )
+              }
+              // ACTIVITY COMPONENT
+              else {
+                return (
+                  // 👇 this renders our Activity component
+                  // we are passing a prop down to Activity component called <onCLick> which contains enableEditing method
+                      <Activity
+                        // 👇 props passed to Activity container
+                        activity={activity}
+                        key={activity.id}
+                        onClick={this.enableEditing}
+                        onDelete={this.deleteActivity}
+                      />
+                )
+              }
 
-          })}
+            })}
+            
+          </div>
 
           <Form onSubmit={this.handleSubmit}>
             <Input

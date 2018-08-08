@@ -9,35 +9,39 @@ import ActivitiesContainer from './ActivitiesContainer';
 const Header = () => {
   if (localStorage.accessToken) {
     return (
-      <header>
-        <nav>
-          <ul>
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/activities'>Activities</Link></li>
-            <li><Link to='/usersignout'>Sign Out</Link></li>
-          </ul>
-        </nav>
+        <header>
+          <nav>
+            <div className="nav">
+              <ul>
+                <li><Link to='/'>Home</Link></li>
+                <li><Link to='/activities'>Activities</Link></li>
+                <li><Link to='/usersignout'>Sign Out</Link></li>
+              </ul>
+            </div>
+          </nav>
 
-        <Switch>
-          <Route exact path='/' component={Welcome} />
-          <Route path='/usersignup' component={UserSignupForm}/>
-          <Route path='/usersignin' component={UserSigninForm}/>
-          <Route path='/usersignout' component={UserSignoutForm}/>
-          <Route path='/activities' component={ActivitiesContainer}/>
-        </Switch>
+          <Switch>
+            <Route exact path='/' component={Welcome} />
+            <Route path='/usersignup' component={UserSignupForm}/>
+            <Route path='/usersignin' component={UserSigninForm}/>
+            <Route path='/usersignout' component={UserSignoutForm}/>
+            <Route path='/activities' component={ActivitiesContainer}/>
+          </Switch>
 
-      </header>
+        </header>
     )
   }
   else {
     return (
       <header>
         <nav>
-          <ul>
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/usersignup'>Signup</Link></li>
-            <li><Link to='/usersignin'>Signin</Link></li>
-          </ul>
+          <div className="nav">
+            <ul>
+              <li><Link to='/'>Home</Link></li>
+              <li><Link to='/usersignup'>Signup</Link></li>
+              <li><Link to='/usersignin'>Signin</Link></li>
+            </ul>
+          </div>
         </nav>
 
         <Switch>

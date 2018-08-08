@@ -1,9 +1,15 @@
 .App {
   text-align: center;
   padding: 40px;
-  height: 1000px;
+  height: 100%;
   color: black;
   background-color: #ffc9a3;
+}
+
+.nav {
+  background: #f9fa6a;
+  padding: 1%;
+  margin: 1%;
 }
 
 .newActivityButton {
@@ -17,27 +23,37 @@
   padding:10px;
 }
 
-.tile {
-  height: 200px;
-  width: 150px;
-  margin: 10px;
-  background: #c4a77d;
-  float: left;
-  font-size: 14px;
-  /*text-align: left;*/
+.activities {
+  background: #b4d0e3;
+  padding: 1%;
+  margin: 1%;
 }
 
-.input {
+.activity-card {
+  /*flex: 1 10%;*/
+  flex-basis: 50%;
+  /*float: inherit;*/
+}
+
+.activity-tile {
+  margin: 3%;
+  padding: 1%;
+  background: #C0EAF0;
+  font-size: 14px;
+}
+
+.edit-title-input {
   border: 0;
-  background: none;
+  background: #C0EAF0;
   outline: none;
   margin-top:10px;
   width: 200px;
   font-size: 14px;
 }
 
-.input:focus {
+.edit-title-input:focus {
   border: solid 1px lightgrey;
+  background: white;
 }
 
 textarea {
@@ -58,6 +74,7 @@ textarea {
     line-height: 1.42857;
 }
 
-.tile:hover .deleteButton {
+.activity-tile:hover .deleteButton {
   visibility: visible;
+  cursor: default;
 }
