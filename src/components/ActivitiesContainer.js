@@ -91,9 +91,9 @@ class ActivitiesContainer extends React.Component {
     const activities = update(this.state.activities, {
       [activityIndex]: { $set: activity }
     })
-    console.log("from updateActivity method", activities)
     // then we setState of the activities from our copy
-    this.setState({activities: activities})
+    this.setState({activities: activities, editingActivityId: null})
+    console.log("after setState inside updateActivity method", activities)
   }
 
   deleteActivity = (id) => {
@@ -145,10 +145,15 @@ class ActivitiesContainer extends React.Component {
 
               // EDIT ACTIVITY TITLE FORM
               if(this.state.editingActivityId === activity.id) {
-                return(
+                return (
                   // this renders our ActivityForm and passes a prop updateActivity = that calls this.updateActivity function in the current component
                   // 👇 these are all the PROPS we send to ActivityForm
-                  <ActivityForm activity={activity} key={activity.id} updateActivity={this.updateActivity} titleRef= {input => this.title = input} />
+                  <ActivityForm
+                    activity={activity}
+                    key={activity.id}
+                    updateActivity={this.updateActivity}
+                    titleRef= {input => this.title = input}
+                  />
                 )
               }
               // ACTIVITY COMPONENT
@@ -173,14 +178,14 @@ class ActivitiesContainer extends React.Component {
           <Form className="newActivityForm" onSubmit={this.handleSubmit}>
             <Input
               className="newActivityInput"
-              placeholder="Stay Hydrated"
+              placeholder="eg. Stay Hydrated"
               type="text"
               name="inputTitle"
               value={this.state.inputTitle}
               onChange={this.handleInput}
             />
             <div className="activityButton">
-              <Button className="newActivityButton" type="submit">Add New Activity</Button>
+              <Button className="newActivityButton" type="submit">Add A New Activity</Button>
             </div>
           </Form>
 

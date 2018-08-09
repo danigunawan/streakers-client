@@ -15,8 +15,6 @@ class Activity extends Component {
   }
 
   render () {
-
-
     return(
       <div className="activity-tile">
         {/* this👇 passes the onClick event to the handleDelete callback fxn above */}
