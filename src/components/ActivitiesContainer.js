@@ -119,14 +119,15 @@ class ActivitiesContainer extends React.Component {
     // IF NO ACTIVITIES ==> INPUT FORM
     if (this.state.activities.length === 0) {
       return (
-        <Form onSubmit={this.handleSubmit}>
+        <Form className="newActivityForm" onSubmit={this.handleSubmit}>
           <Input
+            className="newActivityInput"
             type="text"
             name="inputTitle"
             value={this.state.inputTitle}
             onChange={this.handleInput}
           />
-          <div>
+          <div className="activityButton">
             <Button className="newActivityButton" type="submit">Create An Activity</Button>
           </div>
         </Form>
