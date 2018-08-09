@@ -33,6 +33,7 @@ class Activity extends Component {
         <h3>
           { this.props.activity.streaks.length === 0 ? "no streak" : this.props.activity.streaks[0].status }
         </h3>
+        
       </div>
     )
   }

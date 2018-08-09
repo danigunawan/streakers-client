@@ -47,23 +47,35 @@ export default class UserSigninForm extends Component {
     }
     else {
       return (
-        <Form className="UserForm" onSubmit={this.handleSubmit}>
-          <Label>Email</Label>
+        <Form className="Form" onSubmit={this.handleSubmit}>
+          <Label>
+            Email
+          </Label>
           <Input
-            type="text"
+            className="FormInput"
+            type="email"
             name="email"
+            required
+            placeholder="youremail@provider.com"
             onChange={this.handleChange}
             value={this.state.email}
           />
-          <Label>Password</Label>
+          <Label>
+            Password
+          </Label>
           <Input
+            className="FormInput"
             type="password"
             name="password"
+            placeholder="nomoresecrets"
+            required
             onChange={this.handleChange}
             value={this.state.password}
           />
           <br />
-          <Button type="submit">Sign In</Button>
+          <div className="Button">
+            <Button className="submitButton" type="submit">Sign In</Button>
+          </div>
         </Form>
       )
     }

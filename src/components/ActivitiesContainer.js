@@ -61,17 +61,16 @@ class ActivitiesContainer extends React.Component {
               'X-User-Email': localStorage.email,
               'X-User-Token': localStorage.accessToken
             }
-          }).then(res => {
-        if (res && res.data) {
-          // console.log(res.data.activity);
-          this.setState(( preState ) =>
-            ({ activities: preState.activities.concat([res.data.activity]) })
-          );
-        }
-      })
-      .catch(err => {
+    }).then(res => {
+      if (res && res.data) {
+      // console.log(res.data.activity);
+        this.setState(( preState ) =>
+          ({ activities: preState.activities.concat([res.data.activity]) })
+        );
+      }
+    }).catch(err => {
         console.log(err);
-      })
+    })
   };
 
   enableEditing = (id) => {
@@ -119,16 +118,18 @@ class ActivitiesContainer extends React.Component {
     // IF NO ACTIVITIES ==> INPUT FORM
     if (this.state.activities.length === 0) {
       return (
-        <Form className="newActivityForm" onSubmit={this.handleSubmit}>
+        <Form className="Form" onSubmit={this.handleSubmit}>
           <Input
-            className="newActivityInput"
+            className="FormInput"
             type="text"
             name="inputTitle"
+            required
+            placeholder="eg. Stay Hydrated"
             value={this.state.inputTitle}
             onChange={this.handleInput}
           />
-          <div className="activityButton">
-            <Button className="newActivityButton" type="submit">Create An Activity</Button>
+          <div className="Button">
+            <Button className="submitButton" type="submit">Create An Activity</Button>
           </div>
         </Form>
       );
@@ -176,17 +177,18 @@ class ActivitiesContainer extends React.Component {
 
           </div>
 
-          <Form className="newActivityForm" onSubmit={this.handleSubmit}>
+          <Form className="Form" onSubmit={this.handleSubmit}>
             <Input
-              className="newActivityInput"
-              placeholder="eg. Stay Hydrated"
+              className="FormInput"
               type="text"
               name="inputTitle"
+              required
+              placeholder="eg. Stay Hydrated"
               value={this.state.inputTitle}
               onChange={this.handleInput}
             />
-            <div className="activityButton">
-              <Button className="newActivityButton" type="submit">Add A New Activity</Button>
+            <div className="Button">
+              <Button className="submitButton" type="submit">Add A New Activity</Button>
             </div>
           </Form>
 

@@ -7,6 +7,7 @@ export default class Welcome extends Component {
     super(props);
     this.state = {
       chartData:{
+        labels: ['Practice Kung Fu'],
         datasets:[{
           data: [1],
           backgroundColor: [randomColor({ hue: 'random' })]
@@ -14,6 +15,7 @@ export default class Welcome extends Component {
       }
     }
   }
+
   render() {
     if (localStorage.accessToken) {
       return (
@@ -24,7 +26,10 @@ export default class Welcome extends Component {
               data={this.state.chartData}
               options={{
                   maintainAspectRatio: false,
-                  cutoutPercentage: 30
+                  cutoutPercentage: 30,
+                  legend: {
+                    display: false
+                  }
                 }}
             />
           </div>
@@ -41,7 +46,10 @@ export default class Welcome extends Component {
               data={this.state.chartData}
               options={{
                   maintainAspectRatio: false,
-                  cutoutPercentage: 30
+                  cutoutPercentage: 30,
+                  legend: {
+                    display: false
+                  }
                 }}
             />
           </div>
