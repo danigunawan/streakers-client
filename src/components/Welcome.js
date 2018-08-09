@@ -23,10 +23,12 @@ export default class Welcome extends Component {
           <h1> Welcome to Streakrs </h1>
           <div className="chart">
             <Doughnut
+              className="doughnut"
               data={this.state.chartData}
               options={{
-                  maintainAspectRatio: false,
+                  maintainAspectRatio: true,
                   cutoutPercentage: 30,
+                  responsive: true,
                   legend: {
                     display: false
                   }
