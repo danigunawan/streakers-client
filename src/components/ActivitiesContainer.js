@@ -91,6 +91,7 @@ class ActivitiesContainer extends React.Component {
     const activities = update(this.state.activities, {
       [activityIndex]: { $set: activity }
     })
+    console.log("from updateActivity method", activities)
     // then we setState of the activities from our copy
     this.setState({activities: activities})
   }
@@ -169,14 +170,16 @@ class ActivitiesContainer extends React.Component {
 
           </div>
 
-          <Form onSubmit={this.handleSubmit}>
+          <Form className="newActivityForm" onSubmit={this.handleSubmit}>
             <Input
+              className="newActivityInput"
+              placeholder="Stay Hydrated"
               type="text"
               name="inputTitle"
               value={this.state.inputTitle}
               onChange={this.handleInput}
             />
-            <div>
+            <div className="activityButton">
               <Button className="newActivityButton" type="submit">Add New Activity</Button>
             </div>
           </Form>
