@@ -37,6 +37,7 @@ class Activity extends Component {
 
 
           {this.props.activity.streaks.map((streak) => {
+            console.log("from streak map", streak)
 
             if (streak.status === "finished") {
               return (
@@ -44,6 +45,13 @@ class Activity extends Component {
                   streak={streak}
                   key={streak.id}
                 />
+              )
+            }
+            else if ( streak.status === "active" && streak.reset === true ) {
+              return (
+                <h1>
+                  Renew Streak
+                </h1>
               )
             }
           })}
