@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 
-class NewStreakButton extends Component {
+class StartStreakButton extends Component {
   render () {
     return (
       <div className="Button">
-        <Button className="submitButton" type="submit">Start New Streak</Button>
+        <Button className="submitButton" type="submit">Start Streakin </Button>
       </div>
     )
   }
 }
 
-export default NewStreakButton;
+export default StartStreakButton;

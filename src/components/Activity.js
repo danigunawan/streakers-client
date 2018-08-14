@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import StartStreakButton from './StartStreakButton';
 import NewStreakButton from './NewStreakButton';
+import RenewStreakButton from './RenewStreakButton';
 
 class Activity extends Component {
 
@@ -16,25 +18,43 @@ class Activity extends Component {
   }
 
   render () {
-    return(
-      <div className="activity-tile">
-        {/* this👇 passes the onClick event to the handleDelete callback fxn above */}
-        <span className="deleteButton" onClick={this.handleDelete}>
-          X
-        </span>
-        {/* this👇 passes the onClick event to the handleClick callback fxn above */}
-        <h2 onClick={this.handleClick}>
-          {this.props.activity.title}
-        </h2>
-        <h2>Current Streak:</h2>
-        <h3>
-          { this.props.activity.streaks.length === 0 ? "no streak" : this.props.activity.streaks[0].current_streak }
-        </h3>
-        <h2>Streak Status:</h2>
-        <h3>
-          { this.props.activity.streaks.length === 0 ? "no streak" : this.props.activity.streaks[0].status }
-        </h3>
-
+    if ( this.props.activity.streaks.length === 0 ) {
+      return (
+        <div className="activity-tile">
+          {/* this👇 passes the onClick event to the handleDelete callback fxn above */}
+          <span className="deleteButton" onClick={this.handleDelete}>
+            X
+          </span>
+          {/* this👇 passes the onClick event to the handleClick callback fxn above */}
+          <h2 onClick={this.handleClick}>
+            {this.props.activity.title}
+          </h2>
+          <StartStreakButton
+            activity={this.props.activity}
+            key={this.props.activity.id}
+          />
+        </div>
+      );
+    }
+    else {
+      return (
+        <div className="activity-tile">
+          {/* this👇 passes the onClick event to the handleDelete callback fxn above */}
+          <span className="deleteButton" onClick={this.handleDelete}>
+            X
+          </span>
+          {/* this👇 passes the onClick event to the handleClick callback fxn above */}
+          <h2 onClick={this.handleClick}>
+            {this.props.activity.title}
+          </h2>
+          <h2>Current Streak:</h2>
+          <h3>
+            { this.props.activity.streaks[0].current_streak }
+          </h3>
+          <h2>Streak Status:</h2>
+          <h3>
+            { this.props.activity.streaks[0].status }
+          </h3>
 
           {this.props.activity.streaks.map((streak) => {
             console.log("from streak map", streak)
@@ -47,17 +67,23 @@ class Activity extends Component {
                 />
               )
             }
-            else if ( streak.status === "active" && streak.reset === true ) {
+            else if ( streak.status === "active" && streak.reset === false ) {
               return (
-                <h1>
-                  Renew Streak
-                </h1>
+                  <RenewStreakButton
+                    streak={streak}
+                    key={streak.id}
+                  />
+              )
+            }
+            else if (streak.reset === true) {
+              return (
+                <h2> Streak Updated </h2>
               )
             }
           })}
-
-      </div>
-    )
+        </div>
+      )
+    }
   }
 }
 
