@@ -56,8 +56,8 @@ class Activity extends Component {
             { this.props.activity.streaks[0].status }
           </h3>
 
-          {this.props.activity.streaks.map((streak) => {
-            console.log("from streak map", streak)
+          { this.props.activity.streaks.map((streak) => {
+            // console.log("from streak map", streak)
 
             if (streak.status === "finished") {
               return (
