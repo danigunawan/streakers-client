@@ -95,6 +95,26 @@ class ActivitiesContainer extends React.Component {
     console.log("after setState inside updateActivity method", activities)
   }
 
+  updateActivityStreak = (streak) => {
+    console.log("passed up to ActivitiesContainer.js", streak)
+
+    const activityIndex = this.state.activities.findIndex(x => x.id === streak.activity_id)
+    // console.log("from activityIndex", this.state.activities[activityIndex])
+
+    const activityStreakIndex = this.state.activities[activityIndex].streaks.findIndex(x => x.id === streak.id)
+    // console.log("from activityStreakIndex", this.state.activities[activityIndex].streaks[activityStreakIndex])
+
+    const activities = update(this.state.activities, {
+      [activityIndex]: {
+        streaks: {
+          [activityStreakIndex]: { $set: streak }
+        }
+      }
+    })
+    this.setState({activities: activities})
+    // console.log("after setState inside updateStreakItem method", this.state.activities[activityIndex].streaks)
+  }
+
   deleteActivity = (id) => {
     axios({
       method: 'DELETE',
@@ -169,6 +189,7 @@ class ActivitiesContainer extends React.Component {
                         key={activity.id}
                         onClick={this.enableEditing}
                         onDelete={this.deleteActivity}
+                        updateStreakItem={this.updateActivityStreak}
                       />
                 )
               }

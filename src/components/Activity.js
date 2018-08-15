@@ -17,6 +17,11 @@ class Activity extends Component {
     this.props.onDelete(this.props.activity.id)
   }
 
+  updateStreak = (data) => {
+    // console.log("passed up to Activity.js", data)
+    this.props.updateStreakItem(data)
+  }
+
   render () {
     if ( this.props.activity.streaks.length === 0 ) {
       return (
@@ -72,6 +77,7 @@ class Activity extends Component {
                   <RenewStreakButton
                     streak={streak}
                     key={streak.id}
+                    updateStreak={this.updateStreak}
                   />
               )
             }

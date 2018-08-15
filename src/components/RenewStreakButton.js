@@ -21,8 +21,8 @@ class RenewStreakButton extends Component {
     })
     .then(res => {
       if (res && res.data) {
-      console.log(res.data);
-        // this.props.updateStreak(res.data)
+      // console.log("response from AXIOS PUT request", res.data);
+        this.props.updateStreak(res.data)
       }
     })
     .catch(err => {
