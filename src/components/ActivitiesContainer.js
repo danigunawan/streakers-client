@@ -119,7 +119,6 @@ class ActivitiesContainer extends React.Component {
     console.log("from activityIndex", this.state.activities[activityIndex])
     const activities = update(this.state.activities, {
       [activityIndex]: {
-        // streaks: { $push: streak.streak }
         streaks: { $push: [ streak.streak ] }
       }
     })

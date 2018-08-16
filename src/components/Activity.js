@@ -43,6 +43,7 @@ class Activity extends Component {
           <StartStreakButton
             activity={this.props.activity}
             key={this.props.activity.id}
+            newStreak={this.newStreak}
           />
         </div>
       );
