@@ -5,11 +5,12 @@ import { Button } from 'reactstrap';
 class NewStreakButton extends Component {
 
   handleClick = event => {
-    const activityId = this.props.streak.activity_id
+
+    const activityId = this.props.activity.id;
 
     axios({
       method: 'POST',
-      url: `http://localhost:3001/v1/activities/${activityId}/streaks/`,
+      url: `http://localhost:3001/v1/activities/${activityId}/streaks`,
       data: {
       },
       headers: {
@@ -19,8 +20,8 @@ class NewStreakButton extends Component {
     })
     .then(res => {
       if (res && res.data) {
-      console.log("response from AXIOS PUT request", res.data);
-        // this.props.newStreak(res.data)
+      console.log("response from AXIOS POST request", res.data);
+        this.props.newStreak(res.data)
       }
     })
     .catch(err => {

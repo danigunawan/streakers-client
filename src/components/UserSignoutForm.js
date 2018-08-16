@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Form, Input, Label, Button } from "reactstrap";
+import { Form, Button } from "reactstrap";
 import axios from "axios";
 
 

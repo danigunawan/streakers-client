@@ -96,14 +96,12 @@ class ActivitiesContainer extends React.Component {
   }
 
   updateActivityStreak = (streak) => {
-    console.log("passed up to ActivitiesContainer.js", streak)
-
+    // console.log("passed up to ActivitiesContainer.js", streak)
+    // for more reading on immutability-helper update() & {$set: } and its available commands: https://reactjs.org/docs/update.html
     const activityIndex = this.state.activities.findIndex(x => x.id === streak.activity_id)
     // console.log("from activityIndex", this.state.activities[activityIndex])
-
     const activityStreakIndex = this.state.activities[activityIndex].streaks.findIndex(x => x.id === streak.id)
     // console.log("from activityStreakIndex", this.state.activities[activityIndex].streaks[activityStreakIndex])
-
     const activities = update(this.state.activities, {
       [activityIndex]: {
         streaks: {
@@ -113,6 +111,19 @@ class ActivitiesContainer extends React.Component {
     })
     this.setState({activities: activities})
     // console.log("after setState inside updateStreakItem method", this.state.activities[activityIndex].streaks)
+  }
+
+  newActivityStreak = (streak) => {
+    console.log("passed up to newActivityStreak action inside ActivitiesContainer.js from Activity.js", streak)
+    const activityIndex = this.state.activities.findIndex(x => x.id === streak.streak.activity_id)
+    console.log("from activityIndex", this.state.activities[activityIndex])
+    const activities = update(this.state.activities, {
+      [activityIndex]: {
+        // streaks: { $push: streak.streak }
+        streaks: { $push: [ streak.streak ] }
+      }
+    })
+    this.setState({activities: activities})
   }
 
   deleteActivity = (id) => {
@@ -190,6 +201,7 @@ class ActivitiesContainer extends React.Component {
                         onClick={this.enableEditing}
                         onDelete={this.deleteActivity}
                         updateStreakItem={this.updateActivityStreak}
+                        newStreakItem={this.newActivityStreak}
                       />
                 )
               }

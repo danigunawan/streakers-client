@@ -22,7 +22,13 @@ class Activity extends Component {
     this.props.updateStreakItem(data)
   }
 
+  newStreak = (data) => {
+    // console.log("passed up to Activity.js", data)
+    this.props.newStreakItem(data)
+  }
+
   render () {
+    // if there are NO streaks for activity, DO THIS 👇
     if ( this.props.activity.streaks.length === 0 ) {
       return (
         <div className="activity-tile">
@@ -41,6 +47,26 @@ class Activity extends Component {
         </div>
       );
     }
+    // if the status of the LAST streak in the streaks array = "finished", do this 👇
+    else if ( this.props.activity.streaks[this.props.activity.streaks.length - 1].status === "finished" ) {
+      return (
+        <div className="activity-tile">
+          {/* this👇 passes the onClick event to the handleDelete callback fxn above */}
+          <span className="deleteButton" onClick={this.handleDelete}>
+            X
+          </span>
+          {/* this👇 passes the onClick event to the handleClick callback fxn above */}
+          <h2 onClick={this.handleClick}>
+            {this.props.activity.title}
+          </h2>
+          <NewStreakButton
+            activity={this.props.activity}
+            key={this.props.activity.id}
+            newStreak={this.newStreak}
+          />
+        </div>
+      );
+    }
     else {
       return (
         <div className="activity-tile">
@@ -54,25 +80,16 @@ class Activity extends Component {
           </h2>
           <h2>Current Streak:</h2>
           <h3>
-            { this.props.activity.streaks[0].current_streak }
+            { this.props.activity.streaks[this.props.activity.streaks.length - 1].current_streak }
           </h3>
           <h2>Streak Status:</h2>
           <h3>
-            { this.props.activity.streaks[0].status }
+            { this.props.activity.streaks[this.props.activity.streaks.length - 1].status }
           </h3>
 
           { this.props.activity.streaks.map((streak) => {
             // console.log("from streak map", streak)
-
-            if (streak.status === "finished") {
-              return (
-                <NewStreakButton
-                  streak={streak}
-                  key={streak.id}
-                />
-              )
-            }
-            else if ( streak.status === "active" && streak.reset === false ) {
+            if ( streak.status === "active" && streak.reset === false ) {
               return (
                   <RenewStreakButton
                     streak={streak}
@@ -81,7 +98,7 @@ class Activity extends Component {
                   />
               )
             }
-            else if (streak.reset === true) {
+            else if (streak.status === "active" && streak.reset === true) {
               return (
                 <h2> Streak Updated </h2>
               )
