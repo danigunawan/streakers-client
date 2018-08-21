@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Form, Input, Button } from 'reactstrap';
 import update from 'immutability-helper';
+import ActivityStreaksChart from './ActivityStreaksChart';
 import Activity from './Activity';
 import ActivityForm from './ActivityForm';
 
@@ -14,7 +15,7 @@ class ActivitiesContainer extends React.Component {
   };
 
 // -------------> METHODS:
-  // lifecycle function => fetches our ACTIVITIES from API via AXIOS
+  // LIFECYCLE FUNCTIONS => fetches our ACTIVITIES from API via AXIOS
   componentDidMount() {
     axios({ method: 'GET',
             url: 'http://localhost:3001/v1/activities',
@@ -77,7 +78,7 @@ class ActivitiesContainer extends React.Component {
     this.setState({editingActivityId: id},
       () => { this.title.focus() }
     )
-    console.log('Click happened caught inside Activites Container', id)
+    // console.log('Click happened caught inside Activites Container', id)
   }
 
   updateActivity = (activity) => {
@@ -92,7 +93,7 @@ class ActivitiesContainer extends React.Component {
     })
     // then we setState of the activities from our copy
     this.setState({activities: activities, editingActivityId: null})
-    console.log("after setState inside updateActivity method", activities)
+    // console.log("after setState inside updateActivity method", activities)
   }
 
   updateActivityStreak = (streak) => {
@@ -167,7 +168,13 @@ class ActivitiesContainer extends React.Component {
 
     else {
       return (
+
+
         <div className="activities">
+
+          <ActivityStreaksChart
+            activities={this.state.activities}
+          />
 
           <h1> Your Activities: </h1>
 
@@ -178,8 +185,9 @@ class ActivitiesContainer extends React.Component {
               // EDIT ACTIVITY TITLE FORM
               if(this.state.editingActivityId === activity.id) {
                 return (
-                  // this renders our ActivityForm and passes a prop updateActivity = that calls this.updateActivity function in the current component
-                  // 👇 these are all the PROPS we send to ActivityForm
+                  // this renders our ActivityForm and passes updateActivity as a callback-method prop
+                  // when updateActivity is called in the ActivityForm component, updateActivity will be triggered in this component
+                  // 👇 these are all the PROPS we send to ActivityForm component
                   <ActivityForm
                     activity={activity}
                     key={activity.id}
@@ -188,20 +196,21 @@ class ActivitiesContainer extends React.Component {
                   />
                 )
               }
+
               // ACTIVITY COMPONENT
               else {
                 return (
-                  // 👇 this renders our Activity component
+                  // 👇 this renders Activity component
                   // we are passing a prop down to Activity component called <onCLick> which contains enableEditing method
-                      <Activity
-                        // 👇 props passed to Activity container
-                        activity={activity}
-                        key={activity.id}
-                        onClick={this.enableEditing}
-                        onDelete={this.deleteActivity}
-                        updateStreakItem={this.updateActivityStreak}
-                        newStreakItem={this.newActivityStreak}
-                      />
+                  <Activity
+                    // 👇 props passed to Activity component
+                    activity={activity}
+                    key={activity.id}
+                    onClick={this.enableEditing}
+                    onDelete={this.deleteActivity}
+                    updateStreakItem={this.updateActivityStreak}
+                    newStreakItem={this.newActivityStreak}
+                  />
                 )
               }
 
