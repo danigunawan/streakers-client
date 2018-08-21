@@ -168,8 +168,7 @@ class ActivitiesContainer extends React.Component {
 
     else {
       return (
-
-
+        
         <div className="activities">
 
           <ActivityStreaksChart
