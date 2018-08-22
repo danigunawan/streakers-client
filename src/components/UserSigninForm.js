@@ -5,13 +5,10 @@ import axios from "axios";
 
 
 export default class UserSigninForm extends Component {
-  constructor() {
-    super();
-    this.state = {
+  state = {
       email: "",
       password: ""
-    };
-  }
+  };
 
   handleChange = event => {
     const loginUser = {};
@@ -67,7 +64,7 @@ export default class UserSigninForm extends Component {
             className="FormInput"
             type="password"
             name="password"
-            placeholder="nomoresecrets"
+            placeholder="supersecret"
             required
             onChange={this.handleChange}
             value={this.state.password}

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { Form, Input, Label, Button } from "reactstrap";
 import axios from "axios";
 
@@ -20,11 +21,12 @@ export default class UserSignupForm extends Component {
     axios
       .post("http://localhost:3001/v1/users", { user: this.state })
       .then(function(res) {
-        console.log(res);
+        // console.log(res);
         if (!res.data.errmsg) {
           localStorage.setItem('accessToken', res.data.user.authentication_token)
           localStorage.setItem('email', res.data.user.email)
           alert("Thanks for signing up!!");
+          window.location.reload(true);
         } else {
           alert("email already used");
         }
@@ -35,32 +37,52 @@ export default class UserSignupForm extends Component {
   };
 
   render() {
-    return (
-      <Form className="UserForm" onSubmit={this.handleSubmit}>
-        <Label>Name</Label>
-        <Input
-          type="text"
-          name="name"
-          onChange={this.handleChange}
-          value={this.state.name}
-        />
-        <Label>Email</Label>
-        <Input
-          type="text"
-          name="email"
-          onChange={this.handleChange}
-          value={this.state.email}
-        />
-        <Label>Password</Label>
-        <Input
-          type="password"
-          name="password"
-          onChange={this.handleChange}
-          value={this.state.password}
-        />
-        <br />
-        <Button type="submit">Sign Up</Button>
-      </Form>
-    );
+    if (localStorage.accessToken) {
+      return <Redirect to={{ pathname: "/activities" }} />;
+    }
+    else {
+      return (
+        <Form className="Form" onSubmit={this.handleSubmit}>
+          <Label>
+            Name
+          </Label>
+          <Input
+            className="FormInput"
+            type="text"
+            name="name"
+            onChange={this.handleChange}
+            value={this.state.name}
+          />
+          <Label>
+            Email
+          </Label>
+          <Input
+            className="FormInput"
+            type="text"
+            name="email"
+            required
+            placeholder="youremail@provider.com"
+            onChange={this.handleChange}
+            value={this.state.email}
+          />
+          <Label>
+            Password
+          </Label>
+          <Input
+            className="FormInput"
+            type="password"
+            name="password"
+            placeholder="supersecret"
+            required
+            onChange={this.handleChange}
+            value={this.state.password}
+          />
+          <br />
+          <div className="Button">
+            <Button className="submitButton" type="submit">Sign Up</Button>
+          </div>
+        </Form>
+      );
+    }
   }
 }

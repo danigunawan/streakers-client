@@ -1,10 +1,37 @@
 import React from "react";
 import { Link, Route, Switch } from 'react-router-dom';
-import Welcome from './Welcome';
+import Loadable from 'react-loadable';
+// import Welcome from './Welcome';
 import UserSignupForm from './UserSignupForm';
 import UserSigninForm from './UserSigninForm';
 import UserSignoutForm from './UserSignoutForm';
-import ActivitiesContainer from './ActivitiesContainer';
+// import ActivitiesContainer from './ActivitiesContainer';
+
+function Loading(props) {
+  if (props.error) {
+    return <div>Error! <button onClick={ props.retry }>Retry</button></div>;
+  } else if (props.timedOut) {
+    return <div>Taking a long time... <button onClick={ props.retry }>Retry</button></div>;
+  } else if (props.pastDelay) {
+    return <div>Loading...</div>;
+  } else {
+    return null;
+  }
+}
+
+const ActivitiesContainer = Loadable({
+  loader: () => import('./ActivitiesContainer'),
+  loading: Loading,
+  delay: 300, // 0.3 seconds
+  timeout: 10000, // 10 seconds
+});
+
+const Welcome = Loadable({
+  loader: () => import('./Welcome'),
+  loading: Loading,
+  delay: 300, // 0.3 seconds
+  timeout: 10000, // 10 seconds
+});
 
 const Header = () => {
   if (localStorage.accessToken) {

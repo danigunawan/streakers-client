@@ -1,10 +1,30 @@
 import React from 'react';
 import axios from 'axios';
+import Loadable from 'react-loadable';
 import { Form, Input, Button } from 'reactstrap';
 import update from 'immutability-helper';
-import ActivityStreaksChart from './ActivityStreaksChart';
+// import ActivityStreaksChart from './ActivityStreaksChart';
 import Activity from './Activity';
 import ActivityForm from './ActivityForm';
+
+function Loading(props) {
+  if (props.error) {
+    return <div>Error! <button onClick={ props.retry }>Retry</button></div>;
+  } else if (props.timedOut) {
+    return <div>Taking a long time... <button onClick={ props.retry }>Retry</button></div>;
+  } else if (props.pastDelay) {
+    return <div>Loading...</div>;
+  } else {
+    return null;
+  }
+}
+
+const ActivityStreaksChart = Loadable({
+  loader: () => import('./ActivityStreaksChart'),
+  loading: Loading,
+  delay: 300, // 0.3 seconds
+  timeout: 10000, // 10 seconds
+});
 
 class ActivitiesContainer extends React.Component {
 // ------------> STATE:
@@ -147,28 +167,28 @@ class ActivitiesContainer extends React.Component {
 // STUFF ON PAGE
   render() {
     // IF NO ACTIVITIES ==> INPUT FORM
-    if (this.state.activities.length === 0) {
-      return (
-        <Form className="Form" onSubmit={this.handleSubmit}>
-          <Input
-            className="FormInput"
-            type="text"
-            name="inputTitle"
-            required
-            placeholder="eg. Stay Hydrated"
-            value={this.state.inputTitle}
-            onChange={this.handleInput}
-          />
-          <div className="Button">
-            <Button className="submitButton" type="submit">Create An Activity</Button>
-          </div>
-        </Form>
-      );
-    }
+    // if (this.state.activities.length === 0) {
+    //   return (
+    //     <Form className="Form" onSubmit={this.handleSubmit}>
+    //       <Input
+    //         className="FormInput"
+    //         type="text"
+    //         name="inputTitle"
+    //         required
+    //         placeholder="eg. Stay Hydrated"
+    //         value={this.state.inputTitle}
+    //         onChange={this.handleInput}
+    //       />
+    //       <div className="Button">
+    //         <Button className="submitButton" type="submit">Create An Activity</Button>
+    //       </div>
+    //     </Form>
+    //   );
+    // }
 
-    else {
+    // else {
       return (
-        
+
         <div className="activities">
 
           <ActivityStreaksChart
@@ -234,7 +254,7 @@ class ActivitiesContainer extends React.Component {
 
         </div>
       );
-    }
+    // }
   }
 }
 

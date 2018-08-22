@@ -24,14 +24,6 @@ export default class WelcomeChart extends Component {
       }]
     }
 
-    // let chartData = {
-    //   labels: titles,
-    //   datasets:[{
-    //     data: streaksArray,
-    //     backgroundColor: color
-    //   }]
-    // }
-
     let options = {
       maintainAspectRatio: true,
       cutoutPercentage: 20,
@@ -43,7 +35,7 @@ export default class WelcomeChart extends Component {
     if (localStorage.accessToken) {
       return (
         <div className="welcome">
-          <h1> Welcome back! </h1>
+          <h1> Welcome! </h1>
           <div className="chart">
             <Doughnut
               className="doughnut"

@@ -50,16 +50,24 @@ export default class ActivityStreaksChart extends Component {
       }
     }
 
-    return (
-      <div className="welcome">
-        <div className="chart">
-          <Doughnut
-            className="doughnut"
-            data={chartData}
-            options={options}
-          />
+    if (this.props.activities.length === 0 || this.props.activities[0].streaks.length === 0  ) {
+      return (
+        <div>
         </div>
-      </div>
-    )
+      )
+    }
+    else {
+      return (
+        <div className="welcome">
+          <div className="chart">
+            <Doughnut
+              className="doughnut"
+              data={chartData}
+              options={options}
+            />
+          </div>
+        </div>
+      )
+    }
   }
 }
