@@ -1,30 +1,12 @@
 import React from 'react';
 import axios from 'axios';
-import Loadable from 'react-loadable';
 import { Form, Input, Button } from 'reactstrap';
 import update from 'immutability-helper';
-// import ActivityStreaksChart from './ActivityStreaksChart';
-import Activity from './Activity';
+import Loadmang from '../helpers/Loadmang';
 import ActivityForm from './ActivityForm';
-
-function Loading(props) {
-  if (props.error) {
-    return <div>Error! <button onClick={ props.retry }>Retry</button></div>;
-  } else if (props.timedOut) {
-    return <div>Taking a long time... <button onClick={ props.retry }>Retry</button></div>;
-  } else if (props.pastDelay) {
-    return <div>Loading...</div>;
-  } else {
-    return null;
-  }
-}
-
-const ActivityStreaksChart = Loadable({
-  loader: () => import('./ActivityStreaksChart'),
-  loading: Loading,
-  delay: 300, // 0.3 seconds
-  timeout: 10000, // 10 seconds
-});
+// LOADABLE.JS COMPONENT IMPORTS 👇
+const ActivityStreaksChart = Loadmang(() => import('./ActivityStreaksChart'));
+const Activity = Loadmang(() => import('./Activity'));
 
 class ActivitiesContainer extends React.Component {
 // ------------> STATE:
@@ -135,9 +117,9 @@ class ActivitiesContainer extends React.Component {
   }
 
   newActivityStreak = (streak) => {
-    console.log("passed up to newActivityStreak action inside ActivitiesContainer.js from Activity.js", streak)
+    // console.log("passed up to newActivityStreak action inside ActivitiesContainer.js from Activity.js", streak)
     const activityIndex = this.state.activities.findIndex(x => x.id === streak.streak.activity_id)
-    console.log("from activityIndex", this.state.activities[activityIndex])
+    // console.log("from activityIndex", this.state.activities[activityIndex])
     const activities = update(this.state.activities, {
       [activityIndex]: {
         streaks: { $push: [ streak.streak ] }
@@ -166,95 +148,71 @@ class ActivitiesContainer extends React.Component {
 
 // STUFF ON PAGE
   render() {
-    // IF NO ACTIVITIES ==> INPUT FORM
-    // if (this.state.activities.length === 0) {
-    //   return (
-    //     <Form className="Form" onSubmit={this.handleSubmit}>
-    //       <Input
-    //         className="FormInput"
-    //         type="text"
-    //         name="inputTitle"
-    //         required
-    //         placeholder="eg. Stay Hydrated"
-    //         value={this.state.inputTitle}
-    //         onChange={this.handleInput}
-    //       />
-    //       <div className="Button">
-    //         <Button className="submitButton" type="submit">Create An Activity</Button>
-    //       </div>
-    //     </Form>
-    //   );
-    // }
+    return (
+      <div className="activities">
+        <ActivityStreaksChart
+          activities={this.state.activities}
+        />
 
-    // else {
-      return (
+        <h1> Your Activities: </h1>
 
-        <div className="activities">
+        <div className="activity-card">
 
-          <ActivityStreaksChart
-            activities={this.state.activities}
-          />
+          {this.state.activities.map((activity) => {
 
-          <h1> Your Activities: </h1>
+    // ===> EDIT ACTIVITY TITLE FORM
+            if(this.state.editingActivityId === activity.id) {
+              return (
+                // this renders our ActivityForm and passes updateActivity as a callback-method prop
+                // when updateActivity is called in the ActivityForm component, updateActivity will be triggered in this component
+                // 👇 these are all the PROPS we send to ActivityForm component
+                <ActivityForm
+                  activity={activity}
+                  key={activity.id}
+                  updateActivity={this.updateActivity}
+                  titleRef= {input => this.title = input}
+                />
+              )
+            }
 
-          <div className="activity-card">
+    // ===> ACTIVITY COMPONENT
+            else {
+              return (
+                // 👇 this renders Activity component
+                // we are passing a prop down to Activity component called <onCLick> which contains enableEditing method
+                <Activity
+                  // 👇 props passed to Activity component
+                  activity={activity}
+                  key={activity.id}
+                  onClick={this.enableEditing}
+                  onDelete={this.deleteActivity}
+                  updateStreakItem={this.updateActivityStreak}
+                  newStreakItem={this.newActivityStreak}
+                />
+              )
+            }
 
-            {this.state.activities.map((activity) => {
-
-              // EDIT ACTIVITY TITLE FORM
-              if(this.state.editingActivityId === activity.id) {
-                return (
-                  // this renders our ActivityForm and passes updateActivity as a callback-method prop
-                  // when updateActivity is called in the ActivityForm component, updateActivity will be triggered in this component
-                  // 👇 these are all the PROPS we send to ActivityForm component
-                  <ActivityForm
-                    activity={activity}
-                    key={activity.id}
-                    updateActivity={this.updateActivity}
-                    titleRef= {input => this.title = input}
-                  />
-                )
-              }
-
-              // ACTIVITY COMPONENT
-              else {
-                return (
-                  // 👇 this renders Activity component
-                  // we are passing a prop down to Activity component called <onCLick> which contains enableEditing method
-                  <Activity
-                    // 👇 props passed to Activity component
-                    activity={activity}
-                    key={activity.id}
-                    onClick={this.enableEditing}
-                    onDelete={this.deleteActivity}
-                    updateStreakItem={this.updateActivityStreak}
-                    newStreakItem={this.newActivityStreak}
-                  />
-                )
-              }
-
-            })}
-
-          </div>
-
-          <Form className="Form" onSubmit={this.handleSubmit}>
-            <Input
-              className="FormInput"
-              type="text"
-              name="inputTitle"
-              required
-              placeholder="eg. Stay Hydrated"
-              value={this.state.inputTitle}
-              onChange={this.handleInput}
-            />
-            <div className="Button">
-              <Button className="submitButton" type="submit">Add A New Activity</Button>
-            </div>
-          </Form>
+          })}
 
         </div>
-      );
-    // }
+
+        <Form className="Form" onSubmit={this.handleSubmit}>
+          <Input
+            className="FormInput"
+            type="text"
+            name="inputTitle"
+            required
+            placeholder="eg. Stay Hydrated"
+            value={this.state.inputTitle}
+            onChange={this.handleInput}
+          />
+          <div className="Button">
+            <Button className="submitButton" type="submit">Add A New Activity</Button>
+          </div>
+        </Form>
+
+      </div>
+    );
   }
 }
 
