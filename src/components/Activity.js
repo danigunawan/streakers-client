@@ -101,7 +101,7 @@ class Activity extends Component {
             }
             else if (streak.status === "active" && streak.reset === true) {
               return (
-                <h2> Streak Updated </h2>
+                <h2> Streak Updated ✔️ </h2>
               )
             }
           })}

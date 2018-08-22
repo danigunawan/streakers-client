@@ -6,7 +6,6 @@ export default class WelcomeChart extends Component {
 
   render() {
 
-
     let color = randomColor({
       count: 1,
       luminosity: 'light',
@@ -18,7 +17,10 @@ export default class WelcomeChart extends Component {
       labels: ['Practice Kung Fu'],
       datasets:[{
         data: [1],
-        backgroundColor: color
+        backgroundColor: color,
+        borderColor: '#5D4954',
+        borderWidth: 3.5,
+        pointBackgroundColor: '#007bff'
       }]
     }
 
@@ -32,7 +34,7 @@ export default class WelcomeChart extends Component {
 
     let options = {
       maintainAspectRatio: true,
-      cutoutPercentage: 30,
+      cutoutPercentage: 20,
       legend: {
         display: false
       }

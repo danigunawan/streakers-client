@@ -1,9 +1,31 @@
 import React, { Component } from "react";
-import { Doughnut } from 'react-chartjs-2';
-import randomColor from 'randomcolor';
-import WelcomeChart from './WelcomeChart'
+import axios from 'axios';
+import WelcomeChart from './WelcomeChart';
 
 export default class Welcome extends Component {
+  state = {
+    activities: []
+  };
+
+  componentDidMount() {
+    axios({ method: 'GET',
+            url: 'http://localhost:3001/v1/activities',
+            headers: {
+              'X-User-Email': localStorage.email,
+              'X-User-Token': localStorage.accessToken
+            }
+          })
+    .then(activitiesRes => {
+      if (activitiesRes.status === 200) {
+        this.setState({ activities: activitiesRes.data })
+      } else {
+        alert("could not fetch activities")
+      };
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+  }
 
   render() {
     return (

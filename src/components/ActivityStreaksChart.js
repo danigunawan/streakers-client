@@ -35,13 +35,16 @@ export default class ActivityStreaksChart extends Component {
       labels: titles,
       datasets:[{
         data: streaksArray,
-        backgroundColor: color
+        backgroundColor: color,
+        borderColor: '#5D4954',
+        borderWidth: 3.5,
+        pointBackgroundColor: '#007bff'
       }]
     }
 
     let options = {
       maintainAspectRatio: true,
-      cutoutPercentage: 30,
+      cutoutPercentage: 20,
       legend: {
         display: false
       }
