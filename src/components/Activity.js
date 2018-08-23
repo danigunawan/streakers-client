@@ -42,9 +42,12 @@ class Activity extends Component {
             </span>
           </div>
           {/* this👇 passes the onClick event to the handleClick callback fxn above */}
-          <h2 onClick={this.handleClick}>
-            {this.props.activity.title}
-          </h2>
+          <div className='activityTitleContainer'>
+            <h2 className="activityTitle" onClick={this.handleClick}>
+              {this.props.activity.title}
+              <span className="activityTitleEditButton"> Edit </span>
+            </h2>
+          </div>
           <StartStreakButton
             activity={this.props.activity}
             key={this.props.activity.id}
@@ -66,9 +69,12 @@ class Activity extends Component {
             </span>
           </div>
           {/* this👇 passes the onClick event to the handleClick callback fxn above */}
-          <h2 onClick={this.handleClick}>
-            {this.props.activity.title}
-          </h2>
+          <div className='activityTitleContainer'>
+            <h2 className="activityTitle" onClick={this.handleClick}>
+              {this.props.activity.title}
+              <span className="activityTitleEditButton"> Edit </span>
+            </h2>
+          </div>
           <NewStreakButton
             activity={this.props.activity}
             key={this.props.activity.id}

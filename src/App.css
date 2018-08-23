@@ -106,15 +106,16 @@ textarea {
 
 .deleteButtonContainer {
   display: flex;
-  justify-content: flex-end;
 }
 
 .deleteButton {
+  /*justify-content: flex-end;*/
   visibility: hidden;
   width: 30px;
   padding: 6px 0px;
   border-radius: 15px;
   text-align: center;
+  position: absolute;
 }
 
 .deleteButton:hover {
@@ -122,13 +123,19 @@ textarea {
 }
 
 .activityTitleEditButton {
-  /*justify-content: flex-end;*/
+  flex-direction: row;
   visibility: hidden;
-  float: right;
+  background-color: beige;
+  margin-left: 2%;
+  position: absolute;
 }
 .activityTitleEditButton:hover {
-  background-color: #fdf5e6;
+  background-color: #f9fa6a;
+  border: 1px solid #5D4954;
+  border-radius: 10%;
 }
+
+
 
 .Form {
   border: 2px solid #e3fd9b;
