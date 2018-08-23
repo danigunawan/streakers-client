@@ -14,6 +14,10 @@ class ActivityForm extends Component {
     this.setState({[event.target.name]: event.target.value})
   }
 
+  handleSubmit = event => {
+    event.preventDefault();
+  }
+
   handleBlur = () => {
     // we set a constant called 'newTitle' to the newly updated state of title
     // then we pass this const to the data of the axios call to send to API
@@ -44,7 +48,7 @@ class ActivityForm extends Component {
   render() {
     return (
       <div className="activity-tile">
-        <form onBlur={this.handleBlur}>
+        <form onBlur={this.handleBlur} onSubmit={this.handleSubmit}>
           <input className='edit-title-input' type="text" name="title" value={this.state.title} onChange={this.handleInput} ref={this.props.titleRef} />
         </form>
 
