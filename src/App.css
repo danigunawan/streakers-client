@@ -64,6 +64,7 @@ a:hover {
 }
 
 .activity-tile {
+  flex-direction: column;
   margin: 1%;
   padding: 1%;
   width: 320px;
@@ -94,16 +95,21 @@ textarea {
   font-size: 14px;
 }
 
+.deleteButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .deleteButton {
   visibility: hidden;
-  float: right;
   width: 30px;
-  height: 30px;
   padding: 6px 0px;
   border-radius: 15px;
   text-align: center;
-  font-size: 12px;
-  line-height: 1.42857;
+}
+
+.deleteButton:hover {
+  background-color: 	#ff6a6a;
 }
 
 .activity-tile:hover .deleteButton {

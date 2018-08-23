@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from "reactstrap";
 import StartStreakButton from './StartStreakButton';
 import NewStreakButton from './NewStreakButton';
 import RenewStreakButton from './RenewStreakButton';
@@ -72,9 +73,13 @@ class Activity extends Component {
       return (
         <div className="activity-tile">
           {/* this👇 passes the onClick event to the handleDelete callback fxn above */}
-          <span className="deleteButton" onClick={this.handleDelete}>
-            X
-          </span>
+          <div className='deleteButtonContainer'>
+            <span>
+              <div className="deleteButton" onClick={this.handleDelete}>
+                X
+              </div>
+            </span>
+          </div>
           {/* this👇 passes the onClick event to the handleClick callback fxn above */}
           <h2 onClick={this.handleClick}>
             {this.props.activity.title}
