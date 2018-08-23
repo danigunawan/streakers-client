@@ -71,6 +71,15 @@ a:hover {
   background: #C0EAF0;
 }
 
+.activity-tile:hover .deleteButton {
+  visibility: visible;
+  cursor: default;
+}
+.activityTitleContainer:hover .activityTitleEditButton {
+  visibility: visible;
+  cursor: default;
+}
+
 .edit-title-input {
   border: 0;
   background: #C0EAF0;
@@ -109,12 +118,16 @@ textarea {
 }
 
 .deleteButton:hover {
-  background-color: 	#ff6a6a;
+  background-color: #ff6a6a;
 }
 
-.activity-tile:hover .deleteButton {
-  visibility: visible;
-  cursor: default;
+.activityTitleEditButton {
+  /*justify-content: flex-end;*/
+  visibility: hidden;
+  float: right;
+}
+.activityTitleEditButton:hover {
+  background-color: #fdf5e6;
 }
 
 .Form {
