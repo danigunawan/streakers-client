@@ -207,7 +207,7 @@ class ActivitiesContainer extends React.Component {
             onChange={this.handleInput}
           />
           <div className="Button">
-            <Button className="submitButton" type="submit">Add A New Activity</Button>
+            <Button className="submitButton" type="submit">Add New Activity</Button>
           </div>
         </Form>
 

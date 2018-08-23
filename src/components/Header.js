@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Route, Switch, NavLink } from 'react-router-dom';
 import Loadmang from '../helpers/Loadmang';
 import UserSignupForm from './UserSignupForm';
 import UserSigninForm from './UserSigninForm';
@@ -14,9 +14,9 @@ const Header = () => {
       <header>
         <nav>
           <div className="nav">
-            <span className="navlink"><Link to='/' activeClassName="active">Home</Link></span>
-            <span className="navlink"><Link to='/activities' activeClassName="active">Activities</Link></span>
-            <span className="navlink"><Link to='/usersignout'>Sign Out</Link></span>
+            <span className="navlink"><NavLink exact={true} to='/'>Home</NavLink></span>
+            <span className="navlink"><NavLink to='/activities'>Activities</NavLink></span>
+            <span className="navlink"><NavLink to='/usersignout'>Sign Out</NavLink></span>
           </div>
         </nav>
 
@@ -36,11 +36,9 @@ const Header = () => {
       <header>
         <nav>
           <div className="nav">
-            <ul>
-              <li><Link to='/'>Home</Link></li>
-              <li><Link to='/usersignup'>Signup</Link></li>
-              <li><Link to='/usersignin'>Signin</Link></li>
-            </ul>
+            <span className="navlink"><NavLink exact={true} to='/'>Home</NavLink></span>
+            <span className="navlink"><NavLink to='/usersignup'>Signup</NavLink></span>
+            <span className="navlink"><NavLink to='/usersignin'>Signin</NavLink></span>
           </div>
         </nav>
 
