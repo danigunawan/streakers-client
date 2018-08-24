@@ -36,9 +36,11 @@ export default class UserSignoutForm extends Component {
   render() {
     if (localStorage.accessToken) {
       return (
-        <Form className="UserForm" onSubmit={this.handleSubmit}>
+        <Form className="Form" onSubmit={this.handleSubmit}>
           <br />
-          <Button type="submit">Sign Out</Button>
+          <div className="Button">
+            <Button className="submitButton" type="submit">Sign Out</Button>
+          </div>
         </Form>
       )
     }
