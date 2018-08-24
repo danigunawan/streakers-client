@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Loadmang from '../helpers/Loadmang';
+const StreaksChart = Loadmang(() => import('./StreaksChart'));
 
 class StreaksContainer extends Component {
   state = {
@@ -28,8 +30,10 @@ class StreaksContainer extends Component {
 
   render() {
     return (
-      <div>
-        
+      <div className="Activities">
+        <StreaksChart
+          activities={this.state.activities}
+        />
       </div>
     )
   }

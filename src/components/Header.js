@@ -7,6 +7,7 @@ import UserSignoutForm from './UserSignoutForm';
 // LOADABLE.JS COMPONENT IMPORTS 👇
 const Welcome = Loadmang(() => import('./Welcome'));
 const ActivitiesContainer = Loadmang(() => import('./ActivitiesContainer'));
+const StreaksContainer = Loadmang(() => import('./StreaksContainer'));
 
 const Header = () => {
   if (localStorage.accessToken) {
@@ -16,6 +17,7 @@ const Header = () => {
           <div className="nav">
             <span className="navlink"><NavLink exact={true} to='/'>Home</NavLink></span>
             <span className="navlink"><NavLink to='/activities'>Activities</NavLink></span>
+            <span className="navlink"><NavLink to='/streaks'>Streaks</NavLink></span>
             <span className="navlink"><NavLink to='/usersignout'>Sign Out</NavLink></span>
           </div>
         </nav>
@@ -26,6 +28,7 @@ const Header = () => {
           <Route path='/usersignin' component={UserSigninForm}/>
           <Route path='/usersignout' component={UserSignoutForm}/>
           <Route path='/activities' component={ActivitiesContainer}/>
+          <Route path='/streaks' component={StreaksContainer}/>
         </Switch>
 
       </header>
