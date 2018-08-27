@@ -19,7 +19,7 @@ class ActivitiesContainer extends React.Component {
 // -------------> METHODS:
   // LIFECYCLE FUNCTIONS => fetches our ACTIVITIES from API via AXIOS
   componentDidMount() {
-    this.timer = setInterval(() =>
+    // this.timer = setInterval(() =>
 
       axios({ method: 'GET',
         url: 'http://localhost:3001/v1/activities',
@@ -40,13 +40,13 @@ class ActivitiesContainer extends React.Component {
       .catch(function(error) {
       console.log(error);
       })
-    , 30000);
+    // , 30000);
 
   }
 
-  componentWillUnmount() {
-    clearInterval(this.timer);
-  }
+  // componentWillUnmount() {
+  //   clearInterval(this.timer);
+  // }
 
   // this element handles the form change and captures that value
   handleInput = event => {

@@ -24,7 +24,7 @@ class ActivityForm extends Component {
     const newTitle = {
       title: this.state.title
     }
-    console.log("blur happened")
+    // console.log("blur happened")
     // this is our edit activity request
     axios({
             method: 'PUT',
@@ -45,7 +45,11 @@ class ActivityForm extends Component {
     .catch(error => console.log(error))
   }
 
+
   render() {
+
+    let lastStreak = this.props.activity.streaks[this.props.activity.streaks.length-1]
+    
     return (
       <div className="activity-tile">
         <form onBlur={this.handleBlur} onSubmit={this.handleSubmit}>
@@ -54,11 +58,11 @@ class ActivityForm extends Component {
 
         <h2>Current Streak:</h2>
         <h3>
-          { this.props.activity.streaks.length === 0 ? "no streak" : this.props.activity.streaks[0].current_streak }
+          { this.props.activity.streaks.length === 0 ? "no streak" : lastStreak.current_streak }
         </h3>
         <h2>Streak Status:</h2>
         <h3>
-          { this.props.activity.streaks.length === 0 ? "no streak" : this.props.activity.streaks[0].status }
+          { this.props.activity.streaks.length === 0 ? "no streak" : lastStreak.status }
         </h3>
       </div>
     );
