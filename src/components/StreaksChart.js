@@ -96,6 +96,12 @@ export default class StreaksChart extends Component {
               options={options}
             />
           </div>
+          {/* <div className="streaksGrid">
+            <h3> Activity: </h3>
+            <h5> {titlesArray} </h5>
+            <h3> Streak: </h3>
+            <h5> {streaksArray} </h5>
+          </div> */}
         </div>
       )
     }
