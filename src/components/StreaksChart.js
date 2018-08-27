@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Doughnut } from 'react-chartjs-2';
+import { Polar } from 'react-chartjs-2';
 import randomColor from 'randomcolor';
 
 export default class StreaksChart extends Component {
@@ -25,12 +25,11 @@ export default class StreaksChart extends Component {
         }
       }
     })
-
-    console.log("FROM TITLES ARRAY ==>", titlesArray);
+    // console.log("FROM TITLES ARRAY ==>", titlesArray);
 
     let streaksArray = [];
-    // console.log("current_streak data array", streaksArray);
-
+    let activeStreaksArray = []
+    // console.log("streaksArray data", streaksArray);
     let currentStreaks = this.props.activities.map((activity) => {
       if ( activity.streaks.length === 0 ) {
         streaksArray.push(0)
@@ -38,6 +37,9 @@ export default class StreaksChart extends Component {
       else {
         activity.streaks.map((streak) => {
           streaksArray.push(streak.current_streak)
+          if ( streak.status === "active") {
+            activeStreaksArray.push(streak.current_streak)
+          }
         })
       }
     })
@@ -78,9 +80,17 @@ export default class StreaksChart extends Component {
     else {
       return (
         <div className="welcome">
+          <div className="streakSummary">
+            <h3> Total Streaks: </h3>
+            <h5> {streaksArray.length} </h5>
+            <h3> Longest Streak: </h3>
+            <h5> { Math.max(...streaksArray) } </h5>
+            <h3> Longest Currently Active Streak: </h3>
+            <h5> { Math.max(...activeStreaksArray) } </h5>
+          </div>
           <h1> Your Streaks: </h1>
           <div className="chart">
-            <Doughnut
+            <Polar
               className="doughnut"
               data={chartData}
               options={options}
