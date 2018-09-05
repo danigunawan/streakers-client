@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Form, Input, Button } from 'reactstrap';
 import update from 'immutability-helper';
 import Loadmang from '../helpers/Loadmang';
+import Activities from '../requests/activities';
 import ActivityForm from './ActivityForm';
 // LOADABLE.JS COMPONENT IMPORTS 👇
 const ActivityStreaksChart = Loadmang(() => import('./ActivityStreaksChart'));
@@ -21,16 +22,18 @@ class ActivitiesContainer extends React.Component {
   componentDidMount() {
     // this.timer = setInterval(() =>
 
-      axios({ method: 'GET',
-        url: 'http://localhost:3001/v1/activities',
-        headers: {
-          'X-User-Email': localStorage.email,
-          'X-User-Token': localStorage.accessToken
-        }
-      })
+      // axios({
+      //   method: 'GET',
+      //   url: 'http://localhost:3001/v1/activities',
+      //   headers: {
+      //     'X-User-Email': localStorage.email,
+      //     'X-User-Token': localStorage.accessToken
+      //   }
+      // })
+      Activities.all()
       .then(activitiesRes => {
         if (activitiesRes.status === 200) {
-          // console.log("from componentDidMount",activitiesRes.data)
+          console.log("from componentDidMount", activitiesRes.data)
           // 👇 setSTATE of activities[] to response.data array[]
           this.setState({ activities: activitiesRes.data })
         } else {
