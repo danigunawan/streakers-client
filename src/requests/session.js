@@ -9,6 +9,17 @@ const Session = {
 
   newUser(params) {
     return axios.post(`${BASE_URL}/users`, { user: params })
+  },
+
+  signOut() {
+    return axios({
+      method: 'DELETE',
+      url: `${BASE_URL}/sessions`,
+      headers: {
+        'X-User-Email': localStorage.email,
+        'X-User-Token': localStorage.accessToken
+      }
+    })
   }
 
 };
