@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import Streaks from '../requests/streaks';
 import { Button } from 'reactstrap';
 
 class NewStreakButton extends Component {
@@ -8,17 +8,7 @@ class NewStreakButton extends Component {
 
     const activityId = this.props.activity.id;
 
-    axios({
-      method: 'POST',
-      url: `http://localhost:3001/v1/activities/${activityId}/streaks`,
-      data: {
-      },
-      headers: {
-        'X-User-Email': localStorage.email,
-        'X-User-Token': localStorage.accessToken
-      }
-    })
-    .then(res => {
+    Streaks.new(activityId).then(res => {
       if (res && res.data) {
       console.log("response from AXIOS POST request", res.data);
         this.props.newStreak(res.data)

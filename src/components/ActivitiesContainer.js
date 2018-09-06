@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { Form, Input, Button } from 'reactstrap';
 import update from 'immutability-helper';
 import Loadmang from '../helpers/Loadmang';
@@ -20,31 +19,20 @@ class ActivitiesContainer extends React.Component {
 // -------------> METHODS:
   // LIFECYCLE FUNCTIONS => fetches our ACTIVITIES from API via AXIOS
   componentDidMount() {
-    // this.timer = setInterval(() =>
-
-      // axios({
-      //   method: 'GET',
-      //   url: 'http://localhost:3001/v1/activities',
-      //   headers: {
-      //     'X-User-Email': localStorage.email,
-      //     'X-User-Token': localStorage.accessToken
-      //   }
-      // })
-      Activities.all()
-      .then(activitiesRes => {
-        if (activitiesRes.status === 200) {
-          console.log("from componentDidMount", activitiesRes.data)
-          // 👇 setSTATE of activities[] to response.data array[]
-          this.setState({ activities: activitiesRes.data })
-        } else {
-          alert("could not fetch activities")
-        };
-      })
-      .catch(function(error) {
+  // this.timer = setInterval(() =>
+    Activities.all().then(activitiesRes => {
+      if (activitiesRes.status === 200) {
+        console.log("from componentDidMount", activitiesRes.data)
+        // 👇 setSTATE of activities[] to response.data array[]
+        this.setState({ activities: activitiesRes.data })
+      } else {
+        alert("could not fetch activities")
+      };
+    }).catch(function(error) {
       console.log(error);
-      })
-    // , 30000);
-
+    })
+  // end code for setInterval
+  // , 30000);
   }
 
   // componentWillUnmount() {
@@ -64,18 +52,8 @@ class ActivitiesContainer extends React.Component {
     const toSend = this.state.inputTitle;
     // this 👇 clears inputTitle of the input field form
     this.setState({ inputTitle: "" });
-
-    axios({
-            method: 'POST',
-            url: 'http://localhost:3001/v1/activities',
-            data: {
-              title: toSend
-            },
-            headers: {
-              'X-User-Email': localStorage.email,
-              'X-User-Token': localStorage.accessToken
-            }
-    }).then(res => {
+    // this 👇 calls the create method inside requests/activities and passes it the toSend variable defined above as an arguement
+    Activities.create(toSend).then(res => {
       if (res && res.data) {
       // console.log(res.data.activity);
         this.setState(( preState ) =>
@@ -140,15 +118,7 @@ class ActivitiesContainer extends React.Component {
   }
 
   deleteActivity = (id) => {
-    axios({
-      method: 'DELETE',
-            url: `http://localhost:3001/v1/activities/${id}`,
-            headers: {
-              'X-User-Email': localStorage.email,
-              'X-User-Token': localStorage.accessToken
-            }
-    })
-    .then(response => {
+    Activities.delete(id).then(response => {
       const activityIndex = this.state.activities.findIndex(x => x.id === id)
       // use update with the $splice command to create a new array of ideas, and then update state.ideas with that
       const activities = update(this.state.activities, { $splice: [[activityIndex, 1]]})

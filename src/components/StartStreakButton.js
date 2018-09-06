@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import Streaks from '../requests/streaks';
 import { Button } from 'reactstrap';
 
 class StartStreakButton extends Component {
+
   handleClick = event => {
 
     const activityId = this.props.activity.id;
 
-    axios({
-      method: 'POST',
-      url: `http://localhost:3001/v1/activities/${activityId}/streaks`,
-      data: {
-      },
-      headers: {
-        'X-User-Email': localStorage.email,
-        'X-User-Token': localStorage.accessToken
-      }
-    })
-    .then(res => {
+    Streaks.new(activityId).then(res => {
       if (res && res.data) {
       console.log("response from AXIOS POST request", res.data);
         this.props.newStreak(res.data)
@@ -31,7 +22,7 @@ class StartStreakButton extends Component {
   render () {
     return (
       <div className="Button">
-        <Button className="submitButton" type="submit" onClick={this.handleClick}> Start Streakn! </Button>
+        <Button className="submitButton" type="submit" onClick={this.handleClick}> Start Streakin! </Button>
       </div>
     )
   }

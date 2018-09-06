@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios';
+import Activities from '../requests/activities';
 
 class ActivityForm extends Component {
   constructor(props) {
@@ -25,19 +25,8 @@ class ActivityForm extends Component {
       title: this.state.title
     }
     // console.log("blur happened")
-    // this is our edit activity request
-    axios({
-            method: 'PUT',
-            url: `http://localhost:3001/v1/activities/${this.props.activity.id}`,
-            data: {
-              activity: newTitle
-            },
-            headers: {
-              'X-User-Email': localStorage.email,
-              'X-User-Token': localStorage.accessToken
-            }
-          })
-    .then(response => {
+    // this👇 is our edit activity request
+    Activities.edit(this.props.activity.id, newTitle).then(response => {
       // console.log("response from ActivityForm handleBlur", response.data)
       // this is where we run the updateActivity method + pass the response object ACTIVITY as the arguement
       this.props.updateActivity(response.data)
@@ -49,7 +38,7 @@ class ActivityForm extends Component {
   render() {
 
     let lastStreak = this.props.activity.streaks[this.props.activity.streaks.length-1]
-    
+
     return (
       <div className="activity-tile">
         <form onBlur={this.handleBlur} onSubmit={this.handleSubmit}>
