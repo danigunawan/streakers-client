@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Button } from "reactstrap";
 import StartStreakButton from './StartStreakButton';
 import NewStreakButton from './NewStreakButton';
 import RenewStreakButton from './RenewStreakButton';

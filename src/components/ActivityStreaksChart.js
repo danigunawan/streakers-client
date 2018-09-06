@@ -14,7 +14,7 @@ export default class ActivityStreaksChart extends Component {
     let streaksArray = [];
     // console.log("current_streak data array", streaksArray);
 
-    let currentStreaks = this.props.activities.map((activity) => {
+    let currentStreaks = this.props.activities.forEach( activity => {
       if ( activity.streaks.length === 0 ) {
         streaksArray.push(0)
       }
