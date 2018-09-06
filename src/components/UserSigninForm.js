@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Form, Input, Label, Button } from "reactstrap";
-import axios from "axios";
+import Session from '../requests/session';
 
 
 export default class UserSigninForm extends Component {
@@ -16,26 +16,24 @@ export default class UserSigninForm extends Component {
     this.setState(loginUser);
   };
 
-// AXIOS POST REQUEST
+// requests/session AXIOS POST REQUEST
   handleSubmit = event => {
     event.preventDefault();
-    const requestUser = { email: this.state.email, password: this.state.password }
-    axios
-      .post("http://localhost:3001/v1/sessions", requestUser  )
-      .then(function(res) {
-        console.log(res);
-        if (!res.data.errmsg) {
-          localStorage.setItem('accessToken', res.data.user.authentication_token)
-          localStorage.setItem('email', res.data.user.email)
-          alert("Thanks for signing in!!");
-          window.location.reload(true);
-        } else {
-          alert("email already used");
-        }
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+
+    Session.create(this.state).then(function(res) {
+      // console.log(res);
+      if (!res.data.errmsg) {
+        localStorage.setItem('accessToken', res.data.user.authentication_token)
+        localStorage.setItem('email', res.data.user.email)
+        alert("Thanks for signing in!!");
+        window.location.reload(true);
+      } else {
+        alert("...Something went wrong, please try that again!");
+      }
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
   };
 
   render() {

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Form, Input, Label, Button } from "reactstrap";
-import axios from "axios";
+import Session from '../requests/session';
+// import axios from "axios";
 
 export default class UserSignupForm extends Component {
   state = {
@@ -18,9 +19,8 @@ export default class UserSignupForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    axios
-      .post("http://localhost:3001/v1/users", { user: this.state })
-      .then(function(res) {
+    // requests/session AXIOS POST REQUEST
+      Session.newUser(this.state).then(function(res) {
         // console.log(res);
         if (!res.data.errmsg) {
           localStorage.setItem('accessToken', res.data.user.authentication_token)
