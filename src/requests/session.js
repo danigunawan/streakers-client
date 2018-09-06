@@ -8,7 +8,7 @@ const Session = {
   },
 
   newUser(params) {
-    return axios.post("http://localhost:3001/v1/users", { user: params })
+    return axios.post(`${BASE_URL}/users`, { user: params })
   }
 
 };
