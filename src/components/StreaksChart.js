@@ -33,14 +33,15 @@ export default class StreaksChart extends Component {
     // console.log("streaksArray data", streaksArray);
     let currentStreaks = this.props.activities.forEach( activity => {
       if ( activity.streaks.length === 0 ) {
-        streaksArray.push(0)
+        // streaksArray.push(0)
+        return null
       }
       else {
         activity.streaks.forEach( streak => {
           streaksArray.push(streak.current_streak)
           if ( streak.status === "active") {
             activeStreaksArray.push(streak.current_streak)
-          }
+          } else { return null };
         })
       }
     })
