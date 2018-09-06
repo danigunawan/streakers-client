@@ -10,11 +10,12 @@ export default class StreaksChart extends Component {
 
     let streakActivityIds = []
 
-    let titles = this.props.activities.map((activity) => {
+    let titles = this.props.activities.forEach( activity => {
       if ( activity.streaks.length === 0 ) {
+        return null
       }
       else {
-        activity.streaks.map((streak) => {
+        activity.streaks.forEach( streak => {
           streakActivityIds.push(streak.activity_id)
         })
       }
@@ -30,12 +31,12 @@ export default class StreaksChart extends Component {
     let streaksArray = [];
     let activeStreaksArray = []
     // console.log("streaksArray data", streaksArray);
-    let currentStreaks = this.props.activities.map((activity) => {
+    let currentStreaks = this.props.activities.forEach( activity => {
       if ( activity.streaks.length === 0 ) {
         streaksArray.push(0)
       }
       else {
-        activity.streaks.map((streak) => {
+        activity.streaks.forEach( streak => {
           streaksArray.push(streak.current_streak)
           if ( streak.status === "active") {
             activeStreaksArray.push(streak.current_streak)
