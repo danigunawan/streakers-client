@@ -109,7 +109,7 @@ class Activity extends Component {
             { this.props.activity.streaks[this.props.activity.streaks.length - 1].status }
           </h3>
 
-          { this.props.activity.streaks.map((streak) => {
+          { this.props.activity.streaks.forEach( streak => {
             // console.log("from streak map", streak)
             if ( streak.status === "active" && streak.reset === false ) {
               return (
