@@ -15,9 +15,9 @@ export default class UserSignoutForm extends Component {
       if (!res.data.errmsg) {
         localStorage.removeItem('accessToken')
         localStorage.removeItem('email')
-        window.location.reload(true);
+        // window.location.reload(true);
         alert("Signed out");
-        // this.props.history.push('/');
+        this.props.history.push('/');
       } else {
         alert("Well that was weird! Please try again.");
       }
