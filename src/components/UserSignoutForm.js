@@ -6,18 +6,18 @@ import Session from '../requests/session';
 
 export default class UserSignoutForm extends Component {
 
-  // AXIOS DELETE REQUEST
+  // AXIOS DELETE REQUEST FOR USER SIGN OUT
   handleSubmit = event => {
     event.preventDefault();
 
     Session.signOut().then(function(res) {
-      console.log(res);
+      // console.log(res);
       if (!res.data.errmsg) {
         localStorage.removeItem('accessToken')
         localStorage.removeItem('email')
+        window.location.reload(true);
         alert("Signed out");
-        this.props.history.push("/");
-        // window.location.reload(true);
+        // this.props.history.push('/');
       } else {
         alert("Well that was weird! Please try again.");
       }
