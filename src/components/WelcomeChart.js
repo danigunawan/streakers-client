@@ -49,7 +49,7 @@ export default class WelcomeChart extends Component {
     else {
       return (
         <div className="welcome">
-          <h1> Welcome to Streakrs </h1>
+          <h1> Welcome to Streakers </h1>
           <h4> Please login or register to get started 🌀 </h4>
           <div className="chart">
             <Doughnut

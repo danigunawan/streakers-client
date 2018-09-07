@@ -26,11 +26,10 @@ export default class UserSigninForm extends Component {
       if (!res.data.errmsg) {
         localStorage.setItem('accessToken', res.data.user.authentication_token)
         localStorage.setItem('email', res.data.user.email)
-        alert("Thanks for signing in!!");
         this.setState(() => ({
           toActivities: true
         }))
-        // window.location.reload(true);
+        alert("Thanks for signing in!!");
       } else {
         alert("...Something went wrong, please try that again!");
       }

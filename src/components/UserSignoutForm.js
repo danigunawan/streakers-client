@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Form, Button } from "reactstrap";
 import Session from '../requests/session';
-// import axios from "axios";
 
 export default class UserSignoutForm extends Component {
   state = {
