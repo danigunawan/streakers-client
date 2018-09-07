@@ -26,7 +26,7 @@ const Header = () => {
           <Route exact path='/' component={Welcome} />
           <Route path='/usersignup' component={UserSignupForm}/>
           <Route path='/usersignin' component={UserSigninForm}/>
-          <Route path='/usersignout' component={UserSignoutForm} history={this.props.history}/>
+          <Route path='/usersignout' component={UserSignoutForm}/>
           <Route path='/activities' component={ActivitiesContainer}/>
           <Route path='/streaks' component={StreaksContainer}/>
         </Switch>

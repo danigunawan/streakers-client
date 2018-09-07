@@ -5,19 +5,24 @@ import Session from '../requests/session';
 // import axios from "axios";
 
 export default class UserSignoutForm extends Component {
+  state = {
+    toHome: false,
+  }
 
   // AXIOS DELETE REQUEST FOR USER SIGN OUT
   handleSubmit = event => {
     event.preventDefault();
 
-    Session.signOut().then(function(res) {
+    Session.signOut().then( res => {
       // console.log(res);
       if (!res.data.errmsg) {
         localStorage.removeItem('accessToken')
         localStorage.removeItem('email')
+        this.setState(() => ({
+          toHome: true
+        }))
         // window.location.reload(true);
         alert("Signed out");
-        this.props.history.push('/');
       } else {
         alert("Well that was weird! Please try again.");
       }
@@ -28,7 +33,10 @@ export default class UserSignoutForm extends Component {
   };
 
   render() {
-    if (localStorage.accessToken) {
+    if ( this.state.toHome === true ) {
+      return <Redirect to={{ pathname: "/" }} />;
+    }
+    else {
       return (
         <Form className="Form" onSubmit={this.handleSubmit}>
           <br />
@@ -36,10 +44,7 @@ export default class UserSignoutForm extends Component {
             <Button className="submitButton" type="submit">Sign Out</Button>
           </div>
         </Form>
-      )
-    }
-    else {
-      return <Redirect to={{ pathname: "/" }} />;
+      )  
     }
   }
 }
