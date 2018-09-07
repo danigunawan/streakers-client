@@ -16,9 +16,10 @@ export default class UserSignoutForm extends Component {
         localStorage.removeItem('accessToken')
         localStorage.removeItem('email')
         alert("Signed out");
-        window.location.reload(true);
+        this.props.history.push("/");
+        // window.location.reload(true);
       } else {
-        alert("Could not sign out");
+        alert("Well that was weird! Please try again.");
       }
     })
     .catch(function(error) {
