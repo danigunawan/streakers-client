@@ -6,8 +6,9 @@ import Session from '../requests/session';
 
 export default class UserSigninForm extends Component {
   state = {
-      email: "",
-      password: ""
+    email: "",
+    password: "",
+    toActivities: false,
   };
 
   handleChange = event => {
@@ -20,13 +21,16 @@ export default class UserSigninForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    Session.create(this.state).then(function(res) {
+    Session.create(this.state).then( res => {
       // console.log(res);
       if (!res.data.errmsg) {
         localStorage.setItem('accessToken', res.data.user.authentication_token)
         localStorage.setItem('email', res.data.user.email)
         alert("Thanks for signing in!!");
-        window.location.reload(true);
+        this.setState(() => ({
+          toActivities: true
+        }))
+        // window.location.reload(true);
       } else {
         alert("...Something went wrong, please try that again!");
       }
@@ -37,7 +41,7 @@ export default class UserSigninForm extends Component {
   };
 
   render() {
-    if (localStorage.accessToken) {
+    if ( this.state.toActivities === true ) {
       return <Redirect to={{ pathname: "/activities" }} />;
     }
     else {

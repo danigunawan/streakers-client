@@ -21,7 +21,6 @@ export default class UserSignoutForm extends Component {
         this.setState(() => ({
           toHome: true
         }))
-        // window.location.reload(true);
         alert("Signed out");
       } else {
         alert("Well that was weird! Please try again.");
@@ -44,7 +43,7 @@ export default class UserSignoutForm extends Component {
             <Button className="submitButton" type="submit">Sign Out</Button>
           </div>
         </Form>
-      )  
+      )
     }
   }
 }
