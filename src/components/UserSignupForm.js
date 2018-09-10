@@ -39,7 +39,7 @@ export default class UserSignupForm extends Component {
   };
 
   render() {
-    if ( this.state.toActivities === true ) {
+    if ( localStorage.accessToken && this.state.toActivities === true ) {
       return <Redirect to={{ pathname: "/activities" }} />;
     }
     else {

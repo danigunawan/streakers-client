@@ -31,7 +31,7 @@ export default class UserSignoutForm extends Component {
   };
 
   render() {
-    if ( this.state.toHome === true ) {
+    if ( !localStorage.accessToken && this.state.toHome === true ) {
       return <Redirect to={{ pathname: "/" }} />;
     }
     else {
